@@ -42,6 +42,7 @@ namespace DataBase.Pages
             {
                 Base new_one = new Base();
                 new_one.garage_id = temp_g.gid;
+                new_one.garage_tnum = temp_g.ctnum;
                 foreach(Car temp_c in cars)
                 {
                     if(temp_g.cid == temp_c.cid)
@@ -64,7 +65,6 @@ namespace DataBase.Pages
                 {
                     if((new_one.fid == temp_ft.fid) && (temp_g.cid == temp_ft.cid))
                     {
-                        new_one.garage_tnum = temp_ft.ftnum;
                         new_one.car_tprice = temp_ft.ftprice;
                     }
                 }

@@ -43,7 +43,6 @@ namespace DataBase.Pages
             ObservableCollection<Base> temp2 = new ObservableCollection<Base>();
             temp.Add(new Base { icon = Symbol.Add, type = "汽车", id = 0 });
             temp.Add(new Base { icon = Symbol.Add, type = "用户", id = 1 });
-            temp.Add(new Base { icon = Symbol.Add, type = "车库", id = 2 });
             smallbases.Add(temp);
             SmallTags.ItemsSource = smallbases[nowIndex];
 
@@ -113,11 +112,12 @@ namespace DataBase.Pages
             Cleanhelp();
         }
 
-        private bool String2int(string s, int num)
+        private bool String2int(string s,ref int num)
         {
             try
-            {
+            {   
                 num = int.Parse(s);
+                Debug.Write(s + "\neee" + num);
                 return true;
             }
             catch
@@ -200,27 +200,23 @@ namespace DataBase.Pages
                     Car car = new Car();
                     car.cid = cid.Text;
                     car.cbrand = cbrand.Text;
-                    
-                    if (!String2int(cprice.Text, car.cprice))
+                    int x = 0;
+                    if (!String2int(cprice.Text, ref x))
                     {
                         showNumberErrorDialogAsync();
                         return;
                     }
+                    car.cprice = x;
                     car.fid = fid.Text;
-
                     Factor factor = new Factor();
                     factor.fid = fid.Text;
                     factor.faddress = faddress.Text;
                     factor.fname = fname.Text;
 
                     String feedback = "";
-                    String message1 = SqlHelper.AddFactor(factor, "factor");
+                    SqlHelper.AddFactor(factor, "factor");
                     String message2 = SqlHelper.AddCar(car, "car");
 
-                    if (message1 != "not an error")
-                    {
-                        feedback += message1 + "\n";
-                    }
                     if (message2 != "not an error")
                     {
                         feedback += message2 + "\n";
@@ -242,82 +238,6 @@ namespace DataBase.Pages
                     customer.cuname = cuname.Text;
                     customer.cuaddress = cuaddress.Text;
                     String feedback = SqlHelper.AddCustomer(customer, "customer");
-                    Cleanhelp();
-                    var dialog = new ContentDialog()
-                    {
-                        Content = feedback == "not an error" ? "创建成功" : feedback,
-                        PrimaryButtonText = "确定",
-                        FullSizeDesired = false,
-                    };
-                    await dialog.ShowAsync();
-                }
-                else
-                {
-                    Garbage garbage = new Garbage();
-                    garbage.gid = qid.Text;
-
-                    if (!String2int(ctnum.Text, garbage.ctnum))
-                    {
-                        showNumberErrorDialogAsync();
-                        return;
-                    }
-
-                    garbage.cid = cid2.Text;
-                    String feedback = SqlHelper.AddGarbage(garbage, "garbage");
-                    Cleanhelp();
-                    var dialog = new ContentDialog()
-                    {
-                        Content = feedback == "not an error" ? "创建成功" : feedback,
-                        PrimaryButtonText = "确定",
-                        FullSizeDesired = false,
-                    };
-                    await dialog.ShowAsync();
-                }
-            }
-            else
-            {
-                if (smallIndex == 0)
-                {
-                    
-
-                    
-
-                    Factor_trade_data factor_Trade_Data = new Factor_trade_data { ftid = ftid.Text, cid = cid3.Text, fid = fid2.Text};
-                    if (!String2int(ftprice.Text, factor_Trade_Data.ftprice))
-                    {
-                        showNumberErrorDialogAsync();
-                        return;
-                    }
-                    if (!String2int(ftnum.Text, factor_Trade_Data.ftnum))
-                    {
-                        showNumberErrorDialogAsync();
-                        return;
-                    }
-
-                    String feedback = SqlHelper.AddFactor_trade_data(factor_Trade_Data, "Factor_trade_data");
-                    Cleanhelp();
-                    var dialog = new ContentDialog()
-                    {
-                        Content = feedback == "not an error" ? "创建成功" : feedback,
-                        PrimaryButtonText = "确定",
-                        FullSizeDesired = false,
-                    };
-                    await dialog.ShowAsync();
-                }
-                else
-                { 
-                    Customer_trade_data customer_Trade_Data = new Customer_trade_data { ctid = ctid.Text, cid = cid4.Text, cuid = cuid2.Text};
-                    if (!String2int(ctprice.Text, customer_Trade_Data.ctprice))
-                    {
-                        showNumberErrorDialogAsync();
-                        return;
-                    }
-                    if (!String2int(ctnum2.Text, customer_Trade_Data.ctnum))
-                    {
-                        showNumberErrorDialogAsync();
-                        return;
-                    }
-                    String feedback = SqlHelper.AddCustomer_trade_data(customer_Trade_Data, "customer_trade_data");
                     Cleanhelp();
                     var dialog = new ContentDialog()
                     {

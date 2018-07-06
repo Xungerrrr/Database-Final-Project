@@ -82,13 +82,7 @@
                                             <TextBlock Text="{x:Bind cid}" Grid.Column="3" Foreground="#999999" VerticalAlignment="Center"/>
                                             <TextBlock Text="{x:Bind cuid}" Grid.Column="4" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
                                             <TextBlock Text="{x:Bind cprofit}" Grid.Column="5" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                            <AppBarButton Grid.Column="6" Icon="Setting" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
-                                                <AppBarButton.Flyout>
-                                                    <MenuFlyout>
-                                                        <MenuFlyoutItem FontSize="12" Text="修改" Click="MenuFlyoutItem_Click_1"/>
-                                                        <MenuFlyoutItem FontSize="12" Text="删除" Click="MenuFlyoutItem_Click"/>
-                                                    </MenuFlyout>
-                                                </AppBarButton.Flyout>
+                                            <AppBarButton Grid.Column="6" Icon="Delete" Click="MenuFlyoutItem_Click" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
                                             </AppBarButton>
                                         </Grid>
                                     </UserControl>
@@ -138,13 +132,7 @@
                                         <TextBlock Text="{x:Bind ftnum}" Grid.Column="2" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
                                         <TextBlock Text="{x:Bind cid}" Grid.Column="3" Foreground="#999999" VerticalAlignment="Center"/>
                                         <TextBlock Text="{x:Bind fid}" Grid.Column="4" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                        <AppBarButton Grid.Column="5" Icon="Setting" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
-                                            <AppBarButton.Flyout>
-                                                <MenuFlyout>
-                                                    <MenuFlyoutItem FontSize="12" Text="修改" Click="MenuFlyoutItem_Click_1"/>
-                                                    <MenuFlyoutItem FontSize="12" Text="删除" Click="MenuFlyoutItem_Click"/>
-                                                </MenuFlyout>
-                                            </AppBarButton.Flyout>
+                                        <AppBarButton Grid.Column="5" Icon="Delete" Click="MenuFlyoutItem_Click" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
                                         </AppBarButton>
                                     </Grid>
                                 </UserControl>

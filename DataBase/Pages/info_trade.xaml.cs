@@ -186,43 +186,7 @@ namespace DataBase.Pages
         {
             var s = sender as FrameworkElement;
             info_update.type = nowIndex;
-            //info_update.id = 
-            /*switch (nowIndex)
-            {
-                case 0:
-                    {
-                        info_update.id = ((Factor)s.DataContext).fid;
-                        break;
-                    }
-                case 1:
-                    {
-                        info_update.id = ((Customer)s.DataContext).cuid;
-                        break;
-                    }
-                case 2:
-                    {
-                        info_update.id = ((Car)s.DataContext).cid;
-                        break;
-                    }
-                case 3:
-                    {
-                        info_update.id = ((Customer_trade_data)s.DataContext).ctid;
-                        break;
-                    }
-                case 4:
-                    {
-                        info_update.id = ((Factor_trade_data)s.DataContext).ftid;
-                        break;
-                    }
-                case 5:
-                    {
-                        info_update.id = ((Garbage)s.DataContext).gid;
-                        break;
-                    }
-            }
-
-
-            this.Frame.Navigate(typeof(info_update));*/
+            
         }
 
 
@@ -248,95 +212,121 @@ namespace DataBase.Pages
                 await dialog.ShowAsync();
                 return;
             }
+            if (smallIndex == 0)
             {
-                if (smallIndex == 0)
+                Factor_trade_data factor_Trade_Data = new Factor_trade_data { ftid = ftid.Text, ftprice = String2int(ftprice.Text), cid = cid3.Text, fid = fid2.Text, ftnum = String2int(ftnum.Text) };
+                String message1 = SqlHelper.AddFactor_trade_data(factor_Trade_Data, "Factor_trade_data");
+                String message2 = SqlHelper.GetAllCustomer_trade_data(customer_Trade_Datas, "Customer_trade_data");
+                String message3 = SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
+                String feedback = "";
+                if (message1 != "not an error")
                 {
-                    Factor_trade_data factor_Trade_Data = new Factor_trade_data { ftid = ftid.Text, ftprice = String2int(ftprice.Text), cid = cid3.Text, fid = fid2.Text, ftnum = String2int(ftnum.Text) };
-                    String message1 = SqlHelper.AddFactor_trade_data(factor_Trade_Data, "Factor_trade_data");
-                    String message2 = SqlHelper.GetAllCustomer_trade_data(customer_Trade_Datas, "Customer_trade_data");
-                    String message3 = SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
-                    String feedback = "";
-                    if (message1 != "not an error")
+                    feedback += message1 + "\n";
+                }
+                if (message2 != "not an error")
+                {
+                    feedback += message2 + "\n";
+                }
+                if (message3 != "not an error")
+                {
+                    feedback += message3 + "\n";
+                }
+                Cleanhelp();
+                    var dialog = new ContentDialog()
                     {
-                        feedback += message1 + "\n";
-                    }
-                    if (message2 != "not an error")
+                        Content = feedback == "" ? "创建成功" : feedback,
+                        PrimaryButtonText = "确定",
+                        FullSizeDesired = false,
+                    };
+                    await dialog.ShowAsync();
+            }
+
+            else
+            {
+
+                ObservableCollection<Car> cars = new ObservableCollection<Car>();
+                SqlHelper.GetAllCar(cars, "car");
+                ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
+                ObservableCollection<Factor_trade_data> factor_Trade_Datas = new ObservableCollection<Factor_trade_data>();
+                SqlHelper.GetAllCustomer(customers, "Customer");
+                SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "Factor_Trade_Data");
+                bool judge = false;
+                bool judge2 = false;
+                int price = 0;
+                int count = 0;
+                foreach (Factor_trade_data temp in factor_Trade_Datas)
+                {
+                    if (temp.cid == cid4.Text)
                     {
-                        feedback += message2 + "\n";
+                        judge = true;
+                        price += (temp.ftnum*temp.ftprice);
+                        count += temp.ftnum;
                     }
-                    if (message3 != "not an error")
+                }
+                if(count != 0)
+                {
+                    price = price / count;
+                }
+                foreach (Customer temp in customers)
+                {
+                    if (temp.cuid == cuid2.Text)
                     {
-                        feedback += message3 + "\n";
+                        judge2 = true;
+                        break;
                     }
-                    Cleanhelp();
-                        var dialog = new ContentDialog()
-                        {
-                            Content = feedback == "" ? "创建成功" : feedback,
-                            PrimaryButtonText = "确定",
-                            FullSizeDesired = false,
-                        };
-                        await dialog.ShowAsync();
                 }
 
-                else
+                if (judge && judge2)
                 {
-                    需要重写！！！！！
-
-                    ObservableCollection<Car> cars = new ObservableCollection<Car>();
-                    SqlHelper.GetAllCar(cars, "car");
-                    ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
-                    SqlHelper.GetAllCustomer(customers, "Customer");
-                    bool judge = false;
-                    bool judge2 = false;
-                    int price = 0;
-
-                    foreach (Car temp in cars)
+                    int temp_ctnum = 0;
+                    ObservableCollection<Garbage> temp_g = new ObservableCollection<Garbage>();
+                    SqlHelper.GetAllGarbage(temp_g, "garbage");
+                    foreach (Garbage temp in temp_g)
                     {
                         if (temp.cid == cid4.Text)
                         {
-                            judge = true;
-                            price = temp.cprice;
-                            break;
+                            temp_ctnum = temp.ctnum;
                         }
                     }
-
-                    foreach (Customer temp in customers)
+                    if(String2int(ctnum2.Text) > temp_ctnum)
                     {
-                        if (temp.cuid == cuid2.Text)
+                        var dialog2 = new ContentDialog()
                         {
-                            judge2 = true;
-                            break;
-                        }
-                    }
-
-                    if (judge && judge2)
-                    {
-                        Debug.Write(price);
-                        price = (String2int(ctprice.Text) - price) * String2int(ctnum2.Text);
-                        Customer_trade_data customer_Trade_Data = new Customer_trade_data { ctid = ctid.Text, ctprice = String2int(ctprice.Text), cid = cid4.Text, cuid = cuid2.Text, ctnum = String2int(ctnum2.Text), cprofit = price  };
-                        SqlHelper.AddCustomer_trade_data(customer_Trade_Data, "customer_trade_data");
-                        SqlHelper.GetAllCustomer_trade_data(customer_Trade_Datas, "Customer_trade_data");
-                        SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
-                        Cleanhelp();
-                        var dialog = new ContentDialog()
-                        {
-                            Content = "创建成功",
+                            Content = "车库剩余不足",
                             PrimaryButtonText = "确定",
                             FullSizeDesired = false,
                         };
-                        await dialog.ShowAsync();
+                        await dialog2.ShowAsync();
+                        return;
                     }
-                    else
+
+
+
+                    Debug.Write(price);
+                    price = (String2int(ctprice.Text) - price) * String2int(ctnum2.Text);
+                    Customer_trade_data customer_Trade_Data = new Customer_trade_data { ctid = ctid.Text, ctprice = String2int(ctprice.Text), cid = cid4.Text, cuid = cuid2.Text, ctnum = String2int(ctnum2.Text), cprofit = price  };
+                    SqlHelper.AddCustomer_trade_data(customer_Trade_Data, "customer_trade_data");
+                    SqlHelper.GetAllCustomer_trade_data(customer_Trade_Datas, "Customer_trade_data");
+                    SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
+                    Cleanhelp();
+                    var dialog = new ContentDialog()
                     {
-                        var dialog = new ContentDialog()
-                        {
-                            Title = "提示",
-                            Content = "车的编号或者客户编号不存在",
-                            PrimaryButtonText = "确定",
-                            FullSizeDesired = false,
-                        };
-                        await dialog.ShowAsync();
-                    }
+                        Content = "创建成功",
+                        PrimaryButtonText = "确定",
+                        FullSizeDesired = false,
+                    };
+                    await dialog.ShowAsync();
+                }
+                else
+                {
+                    var dialog = new ContentDialog()
+                    {
+                        Title = "提示",
+                        Content = "车的编号或者客户编号不存在",
+                        PrimaryButtonText = "确定",
+                        FullSizeDesired = false,
+                    };
+                    await dialog.ShowAsync();
                 }
             }
         }

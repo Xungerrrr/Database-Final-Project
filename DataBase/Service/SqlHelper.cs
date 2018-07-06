@@ -152,31 +152,43 @@ namespace DataBase.Service
         {
             ObservableCollection<Garbage> garbages = new ObservableCollection<Garbage>();
             GetAllGarbage(garbages, "garbage");
-            Car temp_car = new Car();
+            bool w_in = false;
             int temp_ctnum = 0;
-            foreach(Garbage temp in garbages)
+            String message = "";
+            foreach (Garbage garbage in garbages)
             {
-                if(temp.cid == factor_trade_data.cid)
+                if(garbage.cid == factor_trade_data.cid)
                 {
-                    temp_ctnum = temp.ctnum;
+                    w_in = true;
+                    temp_ctnum = garbage.ctnum;
+                    Debug.Write(temp_ctnum);
+                    break;
                 }
             }
-            String UPDATE = "UPDATE " + "garbage" + " SET ctnum = ? WHERE cid = ?";
-            try
+            if (w_in)
             {
-                using (var statement = connection.Prepare(UPDATE))
+                String UPDATE = "UPDATE " + "garbage" + " SET ctnum = ? WHERE cid = ?";
+                int ctnum = temp_ctnum + factor_trade_data.ftnum;
+                try
                 {
-                    statement.Bind(1, (temp_ctnum + factor_trade_data.ftnum));
-                    statement.Bind(2, factor_trade_data.cid);
-                    statement.Step();
+                    using (var statement = connection.Prepare(UPDATE))
+                    {
+                        statement.Bind(1, ctnum);
+                        statement.Bind(2, factor_trade_data.cid);
+                        statement.Step();
+                    }
                 }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                message = connection.ErrorMessage().ToString();
             }
-            catch (Exception e)
+            else
             {
-                Debug.WriteLine(e.Message);
+                Garbage garbage = new Garbage { gid = factor_trade_data.cid, cid = factor_trade_data.cid, ctnum = factor_trade_data.ftnum };
+                message =  AddGarbage(garbage, "Garbage");
             }
-            String message = connection.ErrorMessage().ToString();
-
 
             try
             {
@@ -194,12 +206,14 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
-            if (message == "not an error")
+            if (message == "not an error" && connection.ErrorMessage().ToString() == "not an error")
                 return message;
-            else if (connection.ErrorMessage().ToString() == "not an error")
-                return message;
+            else if (connection.ErrorMessage().ToString() != "not an error" && message != "not an error")
+                return message + "\n" + connection.ErrorMessage().ToString();
+            else if (message == "not an error")
+                return connection.ErrorMessage().ToString();
             else
-                return message + connection.ErrorMessage().ToString();
+                return message;
         }
 
 
@@ -251,12 +265,15 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
-            if (message == "not an error")
+
+            if (message == "not an error" && connection.ErrorMessage().ToString() == "not an error")
                 return message;
-            else if (connection.ErrorMessage().ToString() == "not an error")
-                return message;
+            else if (connection.ErrorMessage().ToString() != "not an error" && message != "not an error")
+                return message + "\n" + connection.ErrorMessage().ToString();
+            else if (message == "not an error")
+                return connection.ErrorMessage().ToString();
             else
-                return message + connection.ErrorMessage().ToString();
+                return message;
         }
 
 
