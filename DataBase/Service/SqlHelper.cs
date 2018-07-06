@@ -218,11 +218,9 @@ namespace DataBase.Service
 
 
 
-
         //插入用户交易记录
         public static String AddCustomer_trade_data(Customer_trade_data customer_trade_data, string tableName)
         {
-            int test = 0;
             ObservableCollection<Garbage> garbages = new ObservableCollection<Garbage>();
             GetAllGarbage(garbages, "garbage");
             Car temp_car = new Car();
