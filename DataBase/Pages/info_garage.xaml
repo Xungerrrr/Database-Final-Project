@@ -46,8 +46,8 @@
                             <AppBarButton Grid.Column="3" Icon="Setting" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
                                 <AppBarButton.Flyout>
                                     <MenuFlyout>
-                                        <MenuFlyoutItem FontSize="12" Text="修改" Click="MenuFlyoutItem_Click_1"/>
-                                        <MenuFlyoutItem FontSize="12" Text="删除" Click="MenuFlyoutItem_Click"/>
+                                        <MenuFlyoutItem FontSize="12" Text="修改" Click="ItemModification"/>
+                                        <MenuFlyoutItem FontSize="12" Text="删除" Click="ItemDeletion"/>
                                     </MenuFlyout>
                                 </AppBarButton.Flyout>
                             </AppBarButton>

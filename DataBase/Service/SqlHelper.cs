@@ -17,7 +17,12 @@ namespace DataBase.Service
         public static void PrepareConnection()
         {
             connection = new SQLiteConnection("car.db");
-           
+
+            using (var statement = connection.Prepare(@"PRAGMA foreign_keys = ON"))
+            {
+                SQLiteResult result = statement.Step();
+            }
+
             string FactorSql = @"CREATE TABLE IF NOT EXISTS
                 Factor( fid             VARCHAR(10) PRIMARY KEY NOT NULL,
                         fname           VARCHAR(10),
@@ -28,7 +33,8 @@ namespace DataBase.Service
                 Car(    cid             VARCHAR(10) PRIMARY KEY NOT NULL,
                         cbrand          VARCHAR(10),
                         cprice          INTEGER,
-                        fid             VARCHAR(10) REFERENCES Factor(fid) ON UPDATE CASCADE
+                        fid             VARCHAR(10),
+                        FOREIGN KEY(fid) REFERENCES Factor(fid)
             );";
 
             string CustomSql = @"CREATE TABLE IF NOT EXISTS
@@ -59,7 +65,8 @@ namespace DataBase.Service
                 Garbage( 
                         gid             VARCHAR(10) PRIMARY KEY NOT NULL,                     
                         ctnum           INTEGER,
-                        cid             VARCHAR(10) REFERENCES Car(cid) ON UPDATE CASCADE               
+                        cid             VARCHAR(10), 
+                        FOREIGN KEY(cid) REFERENCES Car(cid) ON UPDATE CASCADE 
             );";
 
             using (var statement = connection.Prepare(FactorSql))
@@ -77,7 +84,7 @@ namespace DataBase.Service
         }
 		
 		//插入工厂数据
-		public static void AddFactor(Factor factor, string tableName)
+		public static String AddFactor(Factor factor, string tableName)
         {
             try
             {
@@ -93,30 +100,34 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 		
 		//插入车数据
-		public static void AddCar(Car car, string tableName)
+		public static String AddCar(Car car, string tableName)
         {
             try
             {
+                //using (var statement = connection.Prepare("INSERT INTO " + tableName + "(cid, cbrand, cprice, fid) VALUES (?, ?, ?, ?)"))
                 using (var statement = connection.Prepare("INSERT INTO " + tableName + "(cid, cbrand, cprice, fid) VALUES (?, ?, ?, ?)"))
                 {
                     statement.Bind(1, car.cid);
                     statement.Bind(2, car.cbrand);
                     statement.Bind(3, car.cprice);
-					statement.Bind(4, car.fid);
+                    statement.Bind(4, car.fid);
                     statement.Step();
                 }
             }
+            
             catch(Exception e)
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }		
 		
 		//插入客户的数据
-		public static void AddCustomer(Customer customer, string tableName)
+		public static String AddCustomer(Customer customer, string tableName)
         {
             try
             {
@@ -132,10 +143,11 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 		
 		//插入工厂交易记录
-		public static void AddFactor_trade_data(Factor_trade_data factor_trade_data, string tableName)
+		public static String AddFactor_trade_data(Factor_trade_data factor_trade_data, string tableName)
         {
             ObservableCollection<Garbage> garbages = new ObservableCollection<Garbage>();
             GetAllGarbage(garbages, "garbage");
@@ -162,6 +174,7 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            String message = connection.ErrorMessage().ToString();
 
 
             try
@@ -180,12 +193,18 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            if (message == "not an error")
+                return message;
+            else if (connection.ErrorMessage().ToString() == "not an error")
+                return message;
+            else
+                return message + connection.ErrorMessage().ToString();
         }
 
 
 
         //插入用户交易记录
-        public static void AddCustomer_trade_data(Customer_trade_data customer_trade_data, string tableName)
+        public static String AddCustomer_trade_data(Customer_trade_data customer_trade_data, string tableName)
         {
             ObservableCollection<Garbage> garbages = new ObservableCollection<Garbage>();
             GetAllGarbage(garbages, "garbage");
@@ -212,7 +231,7 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
-
+            String message = connection.ErrorMessage().ToString();
 
             try
             {
@@ -230,11 +249,17 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            if (message == "not an error")
+                return message;
+            else if (connection.ErrorMessage().ToString() == "not an error")
+                return message;
+            else
+                return message + connection.ErrorMessage().ToString();
         }
 
 
         //插入用户交易记录
-        public static void AddGarbage(Garbage garbage, string tableName)
+        public static String AddGarbage(Garbage garbage, string tableName)
         {
             try
             {
@@ -245,16 +270,18 @@ namespace DataBase.Service
                     statement.Bind(3, garbage.cid);
                     statement.Step();
                 }
+                Debug.WriteLine(connection.ErrorMessage().ToString());
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 
 
         //获取信息
-        public static void GetAllFactor(ObservableCollection<Factor> factors, string tableName, string searchStr = "")
+        public static String GetAllFactor(ObservableCollection<Factor> factors, string tableName, string searchStr = "")
         {
             factors.Clear();
             string sql = "SELECT * FROM " + tableName;
@@ -272,7 +299,7 @@ namespace DataBase.Service
                         factors.Add(factor);
                     }
                 }
-                return;
+                return connection.ErrorMessage().ToString();
             }
             using (var statement = connection.Prepare(sql))
             {
@@ -285,11 +312,12 @@ namespace DataBase.Service
                     factors.Add(factor);
                 }
             }
+            return connection.ErrorMessage().ToString();
         }
 
 
         //获取车信息
-        public static void GetAllCar(ObservableCollection<Car> cars, string tableName, string searchStr = "")
+        public static String GetAllCar(ObservableCollection<Car> cars, string tableName, string searchStr = "")
         {
             cars.Clear();
             string sql = "SELECT * FROM " + tableName;
@@ -308,7 +336,7 @@ namespace DataBase.Service
                         cars.Add(car);
                     }
                 }
-                return;
+                return connection.ErrorMessage().ToString();
             }
             using (var statement = connection.Prepare(sql))
             {
@@ -322,10 +350,11 @@ namespace DataBase.Service
                     cars.Add(car);
                 }
             }
+            return connection.ErrorMessage().ToString();
         }
 
         //获取用户信息
-        public static void GetAllCustomer(ObservableCollection<Customer> customers, string tableName, string searchStr = "")
+        public static String GetAllCustomer(ObservableCollection<Customer> customers, string tableName, string searchStr = "")
         {
             customers.Clear();
             string sql = "SELECT * FROM " + tableName;
@@ -343,7 +372,7 @@ namespace DataBase.Service
                         customers.Add(customer);
                     }
                 }
-                return;
+                return connection.ErrorMessage().ToString();
             }
             using (var statement = connection.Prepare(sql))
             {
@@ -356,11 +385,12 @@ namespace DataBase.Service
                     customers.Add(customer);
                 }
             }
+            return connection.ErrorMessage().ToString();
         }
 
 
         //获取用户交易信息
-        public static void GetAllCustomer_trade_data(ObservableCollection<Customer_trade_data> customer_Trade_Datas, string tableName, string searchStr = "")
+        public static String GetAllCustomer_trade_data(ObservableCollection<Customer_trade_data> customer_Trade_Datas, string tableName, string searchStr = "")
         {
             customer_Trade_Datas.Clear();
             string sql = "SELECT * FROM " + tableName;
@@ -380,7 +410,7 @@ namespace DataBase.Service
                         customer_Trade_Datas.Add(customer_Trade_Data);
                     }
                 }
-                return;
+                return connection.ErrorMessage().ToString();
             }
             using (var statement = connection.Prepare(sql))
             {
@@ -395,12 +425,13 @@ namespace DataBase.Service
                     customer_Trade_Datas.Add(customer_Trade_Data);
                 }
             }
+            return connection.ErrorMessage().ToString();
         }
 
 
 
         //获取厂商交易信息
-        public static void GetAllFactor_trade_data(ObservableCollection<Factor_trade_data> factor_Trade_Datas, string tableName, string searchStr = "")
+        public static String GetAllFactor_trade_data(ObservableCollection<Factor_trade_data> factor_Trade_Datas, string tableName, string searchStr = "")
         {
             factor_Trade_Datas.Clear();
             string sql = "SELECT * FROM " + tableName;
@@ -420,7 +451,7 @@ namespace DataBase.Service
                         factor_Trade_Datas.Add(factor_Trade_Data);
                     }
                 }
-                return;
+                return connection.ErrorMessage().ToString();
             }
             using (var statement = connection.Prepare(sql))
             {
@@ -435,11 +466,12 @@ namespace DataBase.Service
                     factor_Trade_Datas.Add(factor_Trade_Data);
                 }
             }
+            return connection.ErrorMessage().ToString();
         }
 
 
         //获取车库信息
-        public static void GetAllGarbage(ObservableCollection<Garbage> garbages, string tableName, string searchStr = "")
+        public static String GetAllGarbage(ObservableCollection<Garbage> garbages, string tableName, string searchStr = "")
         {
             garbages.Clear();
             string sql = "SELECT * FROM " + tableName;
@@ -457,7 +489,7 @@ namespace DataBase.Service
                         garbages.Add(garbage);
                     }
                 }
-                return;
+                return connection.ErrorMessage().ToString();
             }
             using (var statement = connection.Prepare(sql))
             {
@@ -470,6 +502,7 @@ namespace DataBase.Service
                     garbages.Add(garbage);
                 }
             }
+            return connection.ErrorMessage().ToString();
         }
 
 
@@ -477,7 +510,7 @@ namespace DataBase.Service
 
 
         //删除Factor
-        public static void DeleteFactor(string tableName, Factor factor)
+        public static String DeleteFactor(string tableName, Factor factor)
         {
             try
             {
@@ -491,10 +524,11 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 
         //删除customer
-        public static void DeleteCustomer(string tableName, Customer customer)
+        public static String DeleteCustomer(string tableName, Customer customer)
         {
             try
             {
@@ -508,9 +542,10 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 
-        public static void DeleteCar(string tableName, Car car)
+        public static String DeleteCar(string tableName, Car car)
         {
             try
             {
@@ -524,9 +559,10 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 
-        public static void DeleteCustomer_trade_data(string tableName, Customer_trade_data customer_Trade_Data)
+        public static String DeleteCustomer_trade_data(string tableName, Customer_trade_data customer_Trade_Data)
         {
             try
             {
@@ -540,9 +576,10 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 
-        public static void DeleteFactor_trade_data(string tableName, Factor_trade_data factor_Trade_Data)
+        public static String DeleteFactor_trade_data(string tableName, Factor_trade_data factor_Trade_Data)
         {
             try
             {
@@ -556,9 +593,10 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 
-        public static void DeleteGarbage(string tableName, Garbage garbage)
+        public static String DeleteGarbage(string tableName, Garbage garbage)
         {
             try
             {
@@ -572,9 +610,10 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 
-        public static void UpdateGarbage(string tableName, Garbage garbage)
+        public static String UpdateGarbage(string tableName, Garbage garbage)
         {
             try
             {
@@ -585,14 +624,16 @@ namespace DataBase.Service
                     statement.Bind(3, garbage.gid);
                     statement.Step();
                 }
+                Debug.WriteLine(connection.ErrorMessage().ToString());
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 
-        public static void UpdateCar(string tableName, Car car)
+        public static String UpdateCar(string tableName, Car car)
         {
             try
             {
@@ -608,9 +649,10 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
         }
 
-        public static void UpdateFactor(string tableName, Factor factor)
+        public static String UpdateFactor(string tableName, Factor factor)
         {
             try
             {
@@ -626,10 +668,11 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
 
         }
 
-        public static void UpdateCustomer(string tableName, Customer customer)
+        public static String UpdateCustomer(string tableName, Customer customer)
         {
             try
             {
@@ -645,9 +688,10 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
 
         }
-        public static void UpdateFactor_trade_data(string tableName, Factor_trade_data factor_Trade_Data)
+        public static String UpdateFactor_trade_data(string tableName, Factor_trade_data factor_Trade_Data)
         {
             try
             {
@@ -663,9 +707,10 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
 
         }
-        public static void UpdateCustomer_trade_data(string tableName, Customer_trade_data customer_Trade_Data)
+        public static String UpdateCustomer_trade_data(string tableName, Customer_trade_data customer_Trade_Data)
         {
             try
             {
@@ -681,6 +726,7 @@ namespace DataBase.Service
             {
                 Debug.WriteLine(e.Message);
             }
+            return connection.ErrorMessage().ToString();
 
         }
     }
