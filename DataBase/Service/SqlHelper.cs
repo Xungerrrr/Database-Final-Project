@@ -733,5 +733,12 @@ namespace DataBase.Service
             return connection.ErrorMessage().ToString();
 
         }
+        public static int GetTotal_profit(string tableName) {
+            string sql = "SELECT SUM(cprofit) FROM " + tableName;
+            using (var statement = connection.Prepare(sql)) {
+                statement.Step();
+                return (int)(long)statement[0];
+            }
+        }
     }
 }
