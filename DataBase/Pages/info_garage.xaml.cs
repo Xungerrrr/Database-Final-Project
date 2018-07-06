@@ -3,6 +3,7 @@ using DataBase.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,26 +26,51 @@ namespace DataBase.Pages
     /// </summary>
     public sealed partial class info_garage : Page
     {
+        private ObservableCollection<Factor> factors = new ObservableCollection<Factor>();
+        private ObservableCollection<Car> cars = new ObservableCollection<Car>();
         private ObservableCollection<Garbage> garbages = new ObservableCollection<Garbage>();
+        private ObservableCollection<Base> bases = new ObservableCollection<Base>();
+        private ObservableCollection<Factor_trade_data> factor_Trade_Datas = new ObservableCollection<Factor_trade_data>();
         public info_garage()
         {
             this.InitializeComponent();
+            SqlHelper.GetAllFactor(factors, "factor");
+            SqlHelper.GetAllCar(cars, "car");
             SqlHelper.GetAllGarbage(garbages, "garbage");
-        }
-
-        private void ItemDeletion(object sender, RoutedEventArgs e)
-        {
-            var s = sender as FrameworkElement;
-            SqlHelper.DeleteGarbage("garbage", (Garbage)s.DataContext);
-            SqlHelper.GetAllGarbage(garbages, "garbage");
-        }
-
-        private void ItemModification(object sender, RoutedEventArgs e)
-        {
-            var s = sender as FrameworkElement;
-            info_update.type = 5;//type of garage is 5
-            info_update.id = ((Garbage)s.DataContext).gid;
-            this.Frame.Navigate(typeof(info_update));
+            SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
+            foreach (Garbage temp_g in garbages)
+            {
+                Base new_one = new Base();
+                new_one.garage_id = temp_g.gid;
+                foreach(Car temp_c in cars)
+                {
+                    if(temp_g.cid == temp_c.cid)
+                    {
+                        new_one.car_brand = temp_c.cbrand;
+                        new_one.fid = temp_c.fid;
+                        break;
+                    }
+                }
+                foreach(Factor temp_f in factors)
+                {
+                    if(new_one.fid == temp_f.fid)
+                    {
+                        new_one.factory_name = temp_f.fname;
+                        new_one.factory_address = temp_f.faddress;
+                        break;
+                    }
+                }
+                foreach(Factor_trade_data temp_ft in factor_Trade_Datas)
+                {
+                    if((new_one.fid == temp_ft.fid) && (temp_g.cid == temp_ft.cid))
+                    {
+                        new_one.garage_tnum = temp_ft.ftnum;
+                        new_one.car_tprice = temp_ft.ftprice;
+                    }
+                }
+                bases.Add(new_one);
+            }
+            Debug.Write(bases);
         }
     }
 }

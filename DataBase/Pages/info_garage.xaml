@@ -9,48 +9,52 @@
     mc:Ignorable="d">
 
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="20">
-        <Grid HorizontalAlignment="Center">
-        <TextBlock Text="Garage" FontSize="20"></TextBlock>
+        <Grid HorizontalAlignment="Center" Height="40">
+        <TextBlock Text="Garage" FontSize="20" FontFamily="Algerian" FontStyle="Italic" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         </Grid>
-        <Grid Margin="20, 80, 0, 10" Name="GarbageGrid">
+
+        <Line Height="5" Stretch="Fill" Stroke="Black" StrokeThickness="0.3" X1="1" Margin="-20, 5, -20, 5"/>
+        <Grid Margin="20, 10, 0, 10" Name="GarbageGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="汽车条目编号" Grid.Column="0" VerticalAlignment="Center"/>
-            <TextBlock Text="汽车编号" Grid.Column="1" VerticalAlignment="Center"/>
-            <TextBlock Text="汽车数目" Grid.Column="2" VerticalAlignment="Center"/>
-            <TextBlock Text="操作" Grid.Column="3" VerticalAlignment="Center"/>
+            <TextBlock Text="入库编号" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBlock Text="汽车数目" Grid.Column="1" VerticalAlignment="Center"/>
+            <TextBlock Text="汽车价格" Grid.Column="2" VerticalAlignment="Center"/>
+            <TextBlock Text="汽车品牌" Grid.Column="3" VerticalAlignment="Center"/>
+            <TextBlock Text="产商名称" Grid.Column="4" VerticalAlignment="Center"/>
+            <TextBlock Text="产商地址" Grid.Column="5" VerticalAlignment="Center"/>
         </Grid>
-        <ListView Name="Garbagelist" ItemsSource="{x:Bind garbages}" IsItemClickEnabled="True">
+        <Line Height="5" Stretch="Fill" Stroke="Black" StrokeThickness="0.5" X1="1" Margin="-20, 5, -20, 5"/>
+        <ListView Name="Garbagelist" ItemsSource="{x:Bind bases}" IsItemClickEnabled="True">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="md:Garbage">
+                <DataTemplate x:DataType="md:Base">
                     <UserControl>
                         <Grid Height="auto" Margin="10, 0, 0, 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{x:Bind gid}" Grid.Column="0"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                            <TextBlock Text="{x:Bind cid}" Grid.Column="1" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                            <TextBlock Text="{x:Bind ctnum}" Grid.Column="2" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
-                            <AppBarButton Grid.Column="3" Icon="Setting" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
-                                <AppBarButton.Flyout>
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem FontSize="12" Text="修改" Click="ItemModification"/>
-                                        <MenuFlyoutItem FontSize="12" Text="删除" Click="ItemDeletion"/>
-                                    </MenuFlyout>
-                                </AppBarButton.Flyout>
-                            </AppBarButton>
+                            <TextBlock Text="{x:Bind garage_id}" Grid.Column="0"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind garage_tnum}" Grid.Column="1" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind car_tprice}" Grid.Column="2" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind car_brand}" Grid.Column="3" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind factory_name}" Grid.Column="4" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind factory_address}" Grid.Column="5" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
                         </Grid>
                     </UserControl>
                 </DataTemplate>

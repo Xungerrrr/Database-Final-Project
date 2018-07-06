@@ -49,7 +49,6 @@ namespace DataBase.Pages
             bases.Add(new Base { icon = Symbol.Add, type = "产商", id = 0 });
             bases.Add(new Base { icon = Symbol.Add, type = "用户", id = 1 });
             bases.Add(new Base { icon = Symbol.Add, type = "汽车", id = 2 });
-            bases.Add(new Base { icon = Symbol.Add, type = "车库", id = 5 });
         }
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
