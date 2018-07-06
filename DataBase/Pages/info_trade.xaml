@@ -1,0 +1,224 @@
+﻿<Page
+    x:Class="DataBase.Pages.info_trade"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DataBase.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="using:DataBase.Model"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer>
+            <StackPanel MaxWidth="1200" HorizontalAlignment="Center">
+                <GridView Name="BigTags" HorizontalAlignment="Center" ItemsSource="{x:Bind bases}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="BigTags_ItemClick" Margin="10, 10, 10, 0" BorderBrush="Gray" BorderThickness="0, 0, 0, 1">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="md:Base">
+                            <Grid Width="300">
+                                <TextBlock HorizontalAlignment="Center" Text="{x:Bind type}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+                <GridView Name="SmallTags" SelectionMode="None" IsItemClickEnabled="True" ItemClick="SmallTags_ItemClick" HorizontalAlignment="Center">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="md:Base">
+                            <Grid Width="200">
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind type}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+                <Line Height="5" Stretch="Fill" Stroke="Black" StrokeThickness="0.3" X1="1" Margin="-20, 5, -20, 5"/>
+
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+
+
+                    <Grid Margin="20, 10, 0, 10" Name="Custom_info2" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="交易编号" Grid.Column="0" VerticalAlignment="Center"/>
+                        <TextBlock Text="成交价格" Grid.Column="1" VerticalAlignment="Center"/>
+                        <TextBlock Text="成交数目" Grid.Column="2" VerticalAlignment="Center"/>
+                        <TextBlock Text="汽车编号" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBlock Text="客户编号" Grid.Column="4" VerticalAlignment="Center"/>
+                        <TextBlock Text="操作" Grid.Column="5" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ListView Width="800" Name="Custom_info" Visibility="Collapsed" ItemsSource="{x:Bind customer_Trade_Datas}" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="md:Customer_trade_data">
+                                <UserControl>
+                                    <Grid Height="auto" Margin="10, 0, 0, 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="50"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{x:Bind ctid}" Grid.Column="0"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind ctprice}" Grid.Column="1" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind ctnum}" Grid.Column="2" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind cid}" Grid.Column="3" Foreground="#999999" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind cuid}" Grid.Column="4" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                        <AppBarButton Grid.Column="5" Icon="Setting" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
+                                            <AppBarButton.Flyout>
+                                                <MenuFlyout>
+                                                    <MenuFlyoutItem FontSize="12" Text="修改" Click="MenuFlyoutItem_Click_1"/>
+                                                    <MenuFlyoutItem FontSize="12" Text="删除" Click="MenuFlyoutItem_Click"/>
+                                                </MenuFlyout>
+                                            </AppBarButton.Flyout>
+                                        </AppBarButton>
+                                    </Grid>
+                                </UserControl>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
+                    <Grid Width="800" Margin="20, 10, 0, 10" Name="Car_info" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="交易编号" Grid.Column="0" VerticalAlignment="Center"/>
+                        <TextBlock Text="厂商价格" Grid.Column="1" VerticalAlignment="Center"/>
+                        <TextBlock Text="买入数目" Grid.Column="2" VerticalAlignment="Center"/>
+                        <TextBlock Text="汽车编号" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBlock Text="厂商编号" Grid.Column="4" VerticalAlignment="Center"/>
+                        <TextBlock Text="操作" Grid.Column="5" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ListView Name="Car_info2" Visibility="Collapsed" ItemsSource="{x:Bind factor_Trade_Datas}" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="md:Factor_trade_data">
+                                <UserControl>
+                                    <Grid Height="auto" Margin="10, 0, 0, 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="50"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{x:Bind ftid}" Grid.Column="0"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind ftprice}" Grid.Column="1" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind ftnum}" Grid.Column="2" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind cid}" Grid.Column="3" Foreground="#999999" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind fid}" Grid.Column="4" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                        <AppBarButton Grid.Column="5" Icon="Setting" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
+                                            <AppBarButton.Flyout>
+                                                <MenuFlyout>
+                                                    <MenuFlyoutItem FontSize="12" Text="修改" Click="MenuFlyoutItem_Click_1"/>
+                                                    <MenuFlyoutItem FontSize="12" Text="删除" Click="MenuFlyoutItem_Click"/>
+                                                </MenuFlyout>
+                                            </AppBarButton.Flyout>
+                                        </AppBarButton>
+                                    </Grid>
+                                </UserControl>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+
+                   
+
+
+                    <Grid Name="Garbage_info" Margin="20, 10, 0, 10" Width="400" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="记录号" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="qid" Height="20" Grid.Column="1"  Grid.Row="0" VerticalAlignment="Center"></TextBox>
+                        <TextBlock Text="数量（纯数字）" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
+                        <TextBox x:Name="ctnum" Height="20" Grid.Column="1"  Grid.Row="1" VerticalAlignment="Center"></TextBox>
+                        <TextBlock Text="车编号" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="cid2" Height="20" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Center"></TextBox>
+                    </Grid>
+
+
+                    <Grid Name="in_info" Margin="20, 10, 0, 10" Width="400" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="交易编号" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="ftid" Height="20" Grid.Column="1"  Grid.Row="0" VerticalAlignment="Center"></TextBox>
+                        <TextBlock Text="买入价格（纯数字）" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
+                        <TextBox x:Name="ftprice" Height="20" Grid.Column="1"  Grid.Row="1" VerticalAlignment="Center"></TextBox>
+                        <TextBlock Text="数量（纯数字）" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="ftnum" Height="20" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Center"></TextBox>
+                        <TextBlock Text="车商编号" Grid.Column="0"  Grid.Row="3" VerticalAlignment="Center"/>
+                        <TextBox x:Name="fid2" Height="20" Grid.Column="1"  Grid.Row="3" VerticalAlignment="Center" ></TextBox>
+                        <TextBlock Text="车编号" Grid.Column="0"  Grid.Row="4" VerticalAlignment="Center"/>
+                        <TextBox x:Name="cid3" Height="20" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center"></TextBox>
+                    </Grid>
+
+
+                    <Grid Name="out_info" Margin="20, 10, 0, 10" Width="400" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="交易编号" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="ctid" Height="20" Grid.Column="1"  Grid.Row="0" VerticalAlignment="Center"></TextBox>
+                        <TextBlock Text="卖出价格（纯数字）" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
+                        <TextBox x:Name="ctprice" Height="20" Grid.Column="1"  Grid.Row="1" VerticalAlignment="Center"></TextBox>
+                        <TextBlock Text="数量（纯数字）" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="ctnum2" Height="20" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Center"></TextBox>
+                        <TextBlock Text="客户电话" Grid.Column="0"  Grid.Row="3" VerticalAlignment="Center"/>
+                        <TextBox x:Name="cuid2" Height="20" Grid.Column="1"  Grid.Row="3" VerticalAlignment="Center" ></TextBox>
+                        <TextBlock Text="车编号" Grid.Column="0"  Grid.Row="4" VerticalAlignment="Center"/>
+                        <TextBox x:Name="cid4" Height="20" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center"></TextBox>
+                    </Grid>
+
+                    <GridView HorizontalAlignment="Center" Name="menu" Margin="0,100,0,0">
+                        <Button Content="取消" Margin="0,0,29,0" Click="Button_Click"></Button>
+                        <Button Content="创建" Margin="29,0,0,0" Click="Button_Click_1"></Button>
+                    </GridView>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

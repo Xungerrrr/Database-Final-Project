@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="DataBase.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DataBase"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="MenuItemDataTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Symbol="{Binding Icon}" />
+                    <TextBlock Text="{Binding Text}" Margin="18" PointerPressed="TextBlock_PointerPressed" />
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <SplitView x:Name="mainSplitView" OpenPaneLength="150" CompactPaneLength="45" PaneBackground="LightGray" DisplayMode="CompactOverlay">
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="hanburgButton" FontFamily="Segoe MDL2 Assets" Content="" FontSize="24" Click="hanburgButton_Click" />
+                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" FontSize="15" Text="汽车管理系统"/>
+                    </StackPanel>
+                    <ListView Grid.Row="1" x:Name="mainListView" ItemsSource="{Binding recommandMenu.menuItems}" ItemTemplate="{StaticResource MenuItemDataTemplate}" IsItemClickEnabled="True" ItemClick="mainListView_ItemClick"/>
+                </Grid>
+            </SplitView.Pane>
+            <Frame x:Name="myFrame" Margin="0,10" />
+        </SplitView>
+    </Grid>
+</Page>
