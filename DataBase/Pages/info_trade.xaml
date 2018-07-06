@@ -52,44 +52,51 @@
                         <TextBlock Text="收益" Grid.Column="5" VerticalAlignment="Center"/>
                         <TextBlock Text="操作" Grid.Column="6" VerticalAlignment="Center"/>
                     </Grid>
-                    <ListView Width="800" Name="Custom_info" Visibility="Collapsed" ItemsSource="{x:Bind customer_Trade_Datas}" IsItemClickEnabled="True">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="md:Customer_trade_data">
-                                <UserControl>
-                                    <Grid Height="auto" Margin="10, 0, 0, 0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="50"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{x:Bind ctid}" Grid.Column="0"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind ctprice}" Grid.Column="1" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind ctnum}" Grid.Column="2" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind cid}" Grid.Column="3" Foreground="#999999" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind cuid}" Grid.Column="4" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind cprofit}" Grid.Column="5" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                        <AppBarButton Grid.Column="6" Icon="Setting" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
-                                            <AppBarButton.Flyout>
-                                                <MenuFlyout>
-                                                    <MenuFlyoutItem FontSize="12" Text="修改" Click="MenuFlyoutItem_Click_1"/>
-                                                    <MenuFlyoutItem FontSize="12" Text="删除" Click="MenuFlyoutItem_Click"/>
-                                                </MenuFlyout>
-                                            </AppBarButton.Flyout>
-                                        </AppBarButton>
-                                    </Grid>
-                                </UserControl>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ListView Width="800" Grid.Row="0" Name="Custom_info" Visibility="Collapsed" ItemsSource="{x:Bind customer_Trade_Datas}" IsItemClickEnabled="True">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="md:Customer_trade_data">
+                                    <UserControl>
+                                        <Grid Height="auto" Margin="10, 0, 0, 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="50"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{x:Bind ctid}" Grid.Column="0"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{x:Bind ctprice}" Grid.Column="1" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{x:Bind ctnum}" Grid.Column="2" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{x:Bind cid}" Grid.Column="3" Foreground="#999999" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{x:Bind cuid}" Grid.Column="4" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{x:Bind cprofit}" Grid.Column="5" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                            <AppBarButton Grid.Column="6" Icon="Setting" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
+                                                <AppBarButton.Flyout>
+                                                    <MenuFlyout>
+                                                        <MenuFlyoutItem FontSize="12" Text="修改" Click="MenuFlyoutItem_Click_1"/>
+                                                        <MenuFlyoutItem FontSize="12" Text="删除" Click="MenuFlyoutItem_Click"/>
+                                                    </MenuFlyout>
+                                                </AppBarButton.Flyout>
+                                            </AppBarButton>
+                                        </Grid>
+                                    </UserControl>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Text="总收益：0" Name="Total_profit" FontWeight="Bold"/>
+                    </Grid>
 
 
                     <Grid Width="800" Margin="20, 10, 0, 10" Name="Car_info" Visibility="Collapsed">

@@ -687,5 +687,12 @@ namespace DataBase.Service
             }
 
         }
+        public static int GetTotal_profit(string tableName) {
+            string sql = "SELECT SUM(cprofit) FROM " + tableName;
+            using (var statement = connection.Prepare(sql)) {
+                statement.Step();
+                return (int)(long)statement[0];
+            }
+        }
     }
 }

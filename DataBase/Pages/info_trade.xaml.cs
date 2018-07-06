@@ -67,6 +67,7 @@ namespace DataBase.Pages
             Garbage_info.Visibility = Visibility.Collapsed;
             in_info.Visibility = Visibility.Collapsed;
             out_info.Visibility = Visibility.Collapsed;
+            Total_profit.Visibility = Visibility.Collapsed;
         }
 
         private void show()
@@ -80,8 +81,10 @@ namespace DataBase.Pages
                 }
                 else if (smallIndex == 1)
                 {
+                    Total_profit.Text = "总收益：" + SqlHelper.GetTotal_profit("Customer_trade_data").ToString();
                     Custom_info.Visibility = Visibility.Visible;
                     Custom_info2.Visibility = Visibility.Visible;
+                    Total_profit.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -97,6 +100,7 @@ namespace DataBase.Pages
                 else
                 {
                     out_info.Visibility = Visibility.Visible;
+
                 }
             }
         }
