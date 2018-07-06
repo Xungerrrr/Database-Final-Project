@@ -32,16 +32,19 @@ namespace DataBase.Pages
             SqlHelper.GetAllGarbage(garbages, "garbage");
         }
 
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private void ItemDeletion(object sender, RoutedEventArgs e)
         {
             var s = sender as FrameworkElement;
-            
+            SqlHelper.DeleteGarbage("garbage", (Garbage)s.DataContext);
+            SqlHelper.GetAllGarbage(garbages, "garbage");
         }
 
-        private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
+        private void ItemModification(object sender, RoutedEventArgs e)
         {
             var s = sender as FrameworkElement;
-           
+            info_update.type = 5;//type of garage is 5
+            info_update.id = ((Garbage)s.DataContext).gid;
+            this.Frame.Navigate(typeof(info_update));
         }
     }
 }
