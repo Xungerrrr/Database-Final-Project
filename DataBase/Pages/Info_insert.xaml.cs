@@ -37,7 +37,6 @@ namespace DataBase.Pages
             smallIndex = 0;
             nowIndex = 0;
             bases.Add(new Base { icon = Symbol.Add, type = "基本信息", id = 0 });
-            bases.Add(new Base { icon = Symbol.Add, type = "交易", id = 1 });
 
             
             ObservableCollection<Base> temp = new ObservableCollection<Base>();
@@ -45,10 +44,7 @@ namespace DataBase.Pages
             temp.Add(new Base { icon = Symbol.Add, type = "汽车", id = 0 });
             temp.Add(new Base { icon = Symbol.Add, type = "用户", id = 1 });
             temp.Add(new Base { icon = Symbol.Add, type = "车库", id = 2 });
-            temp2.Add(new Base { icon = Symbol.Add, type = "购入", id = 0 });
-            temp2.Add(new Base { icon = Symbol.Add, type = "卖出", id = 1 });
             smallbases.Add(temp);
-            smallbases.Add(temp2);
             SmallTags.ItemsSource = smallbases[nowIndex];
 
             help();
@@ -117,12 +113,28 @@ namespace DataBase.Pages
             Cleanhelp();
         }
 
-        private int String2int(string s)
+        private bool String2int(string s, int num)
         {
-            int a1 = int.Parse(s);
-            int a2;
-            int.TryParse(s, out a2);
-            return Convert.ToInt32(s);
+            try
+            {
+                num = int.Parse(s);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private async void showNumberErrorDialogAsync()
+        {
+            var errorDialog = new ContentDialog()
+            {
+                Content = "请输入纯数字",
+                PrimaryButtonText = "确定",
+                FullSizeDesired = false,
+            };
+            await errorDialog.ShowAsync();
         }
 
         private void Cleanhelp()
@@ -155,6 +167,32 @@ namespace DataBase.Pages
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            if (
+                (Car_info.Visibility == Visibility.Visible && 
+                (fid.Text == "" || fname.Text == "" || faddress.Text == "" ||
+                cid.Text == "" || cbrand.Text == "" || cprice.Text == "")) ||
+                (Custom_info.Visibility == Visibility.Visible && 
+                (cuid.Text == "" || cuname.Text == "" || cuaddress.Text == "" )) ||
+                (Garbage_info.Visibility == Visibility.Visible &&
+                (qid.Text == "" || ctnum.Text == "" || cid2.Text == "" )) ||
+                (in_info.Visibility == Visibility.Visible && 
+                (ftid.Text == "" || ftprice.Text == "" || ftnum.Text == "" ||
+                 fid2.Text == "" || cid3.Text == "" )) ||
+                (out_info.Visibility == Visibility.Visible && 
+                (ctid.Text == "" || ctprice.Text == "" || ctnum2.Text == "" ||
+                 cuid2.Text == "" || cid4.Text == ""))
+                )
+            {
+                var dialog = new ContentDialog()
+                {
+                    Content = "请不要留空",
+                    PrimaryButtonText = "确定",
+                    FullSizeDesired = false,
+                };
+                await dialog.ShowAsync();
+                return;
+            }
+
             if (nowIndex == 0)
             {
                 if (smallIndex == 0)
@@ -162,7 +200,12 @@ namespace DataBase.Pages
                     Car car = new Car();
                     car.cid = cid.Text;
                     car.cbrand = cbrand.Text;
-                    car.cprice = String2int(cprice.Text);
+                    
+                    if (!String2int(cprice.Text, car.cprice))
+                    {
+                        showNumberErrorDialogAsync();
+                        return;
+                    }
                     car.fid = fid.Text;
 
                     Factor factor = new Factor();
@@ -170,12 +213,23 @@ namespace DataBase.Pages
                     factor.faddress = faddress.Text;
                     factor.fname = fname.Text;
 
-                    SqlHelper.AddFactor(factor, "factor");
-                    SqlHelper.AddCar(car, "car");
+                    String feedback = "";
+                    String message1 = SqlHelper.AddFactor(factor, "factor");
+                    String message2 = SqlHelper.AddCar(car, "car");
+
+                    if (message1 != "not an error")
+                    {
+                        feedback += message1 + "\n";
+                    }
+                    if (message2 != "not an error")
+                    {
+                        feedback += message2 + "\n";
+                    }
+
                     Cleanhelp();
                     var dialog = new ContentDialog()
                     {
-                        Content = "创建成功",
+                        Content = feedback == "" ? "创建成功" : feedback,
                         PrimaryButtonText = "确定",
                         FullSizeDesired = false,
                     };
@@ -187,11 +241,11 @@ namespace DataBase.Pages
                     customer.cuid = cuid.Text;
                     customer.cuname = cuname.Text;
                     customer.cuaddress = cuaddress.Text;
-                    SqlHelper.AddCustomer(customer, "customer");
+                    String feedback = SqlHelper.AddCustomer(customer, "customer");
                     Cleanhelp();
                     var dialog = new ContentDialog()
                     {
-                        Content = "创建成功",
+                        Content = feedback == "not an error" ? "创建成功" : feedback,
                         PrimaryButtonText = "确定",
                         FullSizeDesired = false,
                     };
@@ -199,152 +253,79 @@ namespace DataBase.Pages
                 }
                 else
                 {
-                    ObservableCollection<Car> cars = new ObservableCollection<Car>();
-                    SqlHelper.GetAllCar(cars, "car");
-                    bool judge = false;
-                    foreach(Car temp in cars)
+                    Garbage garbage = new Garbage();
+                    garbage.gid = qid.Text;
+
+                    if (!String2int(ctnum.Text, garbage.ctnum))
                     {
-                        if(temp.cid == cid2.Text)
-                        {
-                            judge = true;
-                            break;
-                        }
+                        showNumberErrorDialogAsync();
+                        return;
                     }
-                    if(judge == true)
+
+                    garbage.cid = cid2.Text;
+                    String feedback = SqlHelper.AddGarbage(garbage, "garbage");
+                    Cleanhelp();
+                    var dialog = new ContentDialog()
                     {
-                        Garbage garbage = new Garbage();
-                        garbage.gid = qid.Text;
-                        garbage.ctnum = String2int(ctnum.Text);
-                        garbage.cid = cid2.Text;
-                        SqlHelper.AddGarbage(garbage, "garbage");
-                        Cleanhelp();
-                        var dialog = new ContentDialog()
-                        {
-                            Content = "创建成功",
-                            PrimaryButtonText = "确定",
-                            FullSizeDesired = false,
-                        };
-                        await dialog.ShowAsync();
-                    }
-                    else
-                    {
-                        var dialog = new ContentDialog()
-                        {
-                            Title = "提示",
-                            Content = "车的编号不存在",
-                            PrimaryButtonText = "确定",
-                            FullSizeDesired = false,
-                        };
-                        await dialog.ShowAsync();
-                    }
+                        Content = feedback == "not an error" ? "创建成功" : feedback,
+                        PrimaryButtonText = "确定",
+                        FullSizeDesired = false,
+                    };
+                    await dialog.ShowAsync();
                 }
             }
             else
             {
                 if (smallIndex == 0)
                 {
-                    ObservableCollection<Car> cars = new ObservableCollection<Car>();
-                    SqlHelper.GetAllCar(cars, "car");
-                    ObservableCollection<Factor> factors = new ObservableCollection<Factor>();
-                    SqlHelper.GetAllFactor(factors, "factor");
-                    bool judge = false;
-                    bool judge2 = false;
+                    
 
-                    foreach (Car temp in cars)
+                    
+
+                    Factor_trade_data factor_Trade_Data = new Factor_trade_data { ftid = ftid.Text, cid = cid3.Text, fid = fid2.Text};
+                    if (!String2int(ftprice.Text, factor_Trade_Data.ftprice))
                     {
-                        if (temp.cid == cid3.Text)
-                        {
-                            judge = true;
-                            break;
-                        }
+                        showNumberErrorDialogAsync();
+                        return;
                     }
-
-                    foreach (Factor temp in factors)
+                    if (!String2int(ftnum.Text, factor_Trade_Data.ftnum))
                     {
-                        if (temp.fid == fid2.Text)
-                        {
-                            judge2 = true;
-                            break;
-                        }
+                        showNumberErrorDialogAsync();
+                        return;
                     }
 
-                    if(judge && judge2)
+                    String feedback = SqlHelper.AddFactor_trade_data(factor_Trade_Data, "Factor_trade_data");
+                    Cleanhelp();
+                    var dialog = new ContentDialog()
                     {
-                        Factor_trade_data factor_Trade_Data = new Factor_trade_data { ftid = ftid.Text, ftprice = String2int(ftprice.Text), cid = cid3.Text, fid = fid2.Text, ftnum = String2int(ftnum.Text) };
-                        SqlHelper.AddFactor_trade_data(factor_Trade_Data, "Factor_trade_data");
-                        Cleanhelp();
-                        var dialog = new ContentDialog()
-                        {
-                            Content = "创建成功",
-                            PrimaryButtonText = "确定",
-                            FullSizeDesired = false,
-                        };
-                        await dialog.ShowAsync();
-                    }
-                    else
-                    {
-                        var dialog = new ContentDialog()
-                        {
-                            Title = "提示",
-                            Content = "车的编号或者车商的编号不存在",
-                            PrimaryButtonText = "确定",
-                            FullSizeDesired = false,
-                        };
-                        await dialog.ShowAsync();
-                    }
+                        Content = feedback == "not an error" ? "创建成功" : feedback,
+                        PrimaryButtonText = "确定",
+                        FullSizeDesired = false,
+                    };
+                    await dialog.ShowAsync();
                 }
                 else
-                {
-                    ObservableCollection<Car> cars = new ObservableCollection<Car>();
-                    SqlHelper.GetAllCar(cars, "car");
-                    ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
-                    SqlHelper.GetAllCustomer(customers, "Customer");
-                    bool judge = false;
-                    bool judge2 = false;
-
-                    foreach (Car temp in cars)
+                { 
+                    Customer_trade_data customer_Trade_Data = new Customer_trade_data { ctid = ctid.Text, cid = cid4.Text, cuid = cuid2.Text};
+                    if (!String2int(ctprice.Text, customer_Trade_Data.ctprice))
                     {
-                        if (temp.cid == cid4.Text)
-                        {
-                            judge = true;
-                            break;
-                        }
+                        showNumberErrorDialogAsync();
+                        return;
                     }
-
-                    foreach (Customer temp in customers)
+                    if (!String2int(ctnum2.Text, customer_Trade_Data.ctnum))
                     {
-                        if (temp.cuid == cuid2.Text)
-                        {
-                            judge2 = true;
-                            break;
-                        }
+                        showNumberErrorDialogAsync();
+                        return;
                     }
-
-                    if (judge && judge2)
+                    String feedback = SqlHelper.AddCustomer_trade_data(customer_Trade_Data, "customer_trade_data");
+                    Cleanhelp();
+                    var dialog = new ContentDialog()
                     {
-
-                        Customer_trade_data customer_Trade_Data = new Customer_trade_data { ctid = ctid.Text, ctprice = String2int(ctprice.Text), cid = cid4.Text, cuid = cuid2.Text, ctnum = String2int(ctnum2.Text) };
-                        SqlHelper.AddCustomer_trade_data(customer_Trade_Data, "customer_trade_data");
-                        Cleanhelp();
-                        var dialog = new ContentDialog()
-                        {
-                            Content = "创建成功",
-                            PrimaryButtonText = "确定",
-                            FullSizeDesired = false,
-                        };
-                        await dialog.ShowAsync();
-                    }
-                    else
-                    {
-                        var dialog = new ContentDialog()
-                        {
-                            Title = "提示",
-                            Content = "车的编号或者客户编号不存在",
-                            PrimaryButtonText = "确定",
-                            FullSizeDesired = false,
-                        };
-                        await dialog.ShowAsync();
-                    }
+                        Content = feedback == "not an error" ? "创建成功" : feedback,
+                        PrimaryButtonText = "确定",
+                        FullSizeDesired = false,
+                    };
+                    await dialog.ShowAsync();
                 }
             }
         }
