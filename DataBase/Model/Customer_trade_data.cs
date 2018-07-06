@@ -13,5 +13,6 @@ namespace DataBase.Model
         public int ctnum { get; set; }
         public string cuid { get; set; }
         public string cid { get; set; }
+        public int cprofit { get; set; }
     }
 }

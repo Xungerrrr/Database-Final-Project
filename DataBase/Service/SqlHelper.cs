@@ -58,7 +58,8 @@ namespace DataBase.Service
                         ctprice         INTEGER,
                         ctnum           INTEGER,
                         cuid            VARCHAR(10) REFERENCES Customer(cuid) ON UPDATE CASCADE,
-                        cid             VARCHAR(10) REFERENCES Car(cid) ON UPDATE CASCADE               
+                        cid             VARCHAR(10) REFERENCES Car(cid) ON UPDATE CASCADE,
+                        cprofit         INTEGER
             );";
 
             string GarbageSql = @"CREATE TABLE IF NOT EXISTS
@@ -235,13 +236,14 @@ namespace DataBase.Service
 
             try
             {
-                using (var statement = connection.Prepare("INSERT INTO " + tableName + "(ctid, ctprice, ctnum, cuid, cid) VALUES (?, ?, ?, ?, ?)"))
+                using (var statement = connection.Prepare("INSERT INTO " + tableName + "(ctid, ctprice, ctnum, cuid, cid, cprofit) VALUES (?, ?, ?, ?, ?, ?)"))
                 {
                     statement.Bind(1, customer_trade_data.ctid);
                     statement.Bind(2, customer_trade_data.ctprice);
                     statement.Bind(3, customer_trade_data.ctnum);
                     statement.Bind(4, customer_trade_data.cuid);
                     statement.Bind(5, customer_trade_data.cid);
+                    statement.Bind(6, customer_trade_data.cprofit);
                     statement.Step();
                 }
             }
@@ -407,6 +409,7 @@ namespace DataBase.Service
                         customer_Trade_Data.ctnum = (int)(long)statement[2];
                         customer_Trade_Data.cuid = (string)statement[3];
                         customer_Trade_Data.cid = (string)statement[4];
+                        customer_Trade_Data.cprofit = (int)(long)statement[5];
                         customer_Trade_Datas.Add(customer_Trade_Data);
                     }
                 }
@@ -422,6 +425,7 @@ namespace DataBase.Service
                     customer_Trade_Data.ctnum = (int)(long)statement[2];
                     customer_Trade_Data.cuid = (string)statement[3];
                     customer_Trade_Data.cid = (string)statement[4];
+                    customer_Trade_Data.cprofit = (int)(long)statement[5];
                     customer_Trade_Datas.Add(customer_Trade_Data);
                 }
             }
