@@ -287,12 +287,14 @@ namespace DataBase.Pages
                     SqlHelper.GetAllCustomer(customers, "Customer");
                     bool judge = false;
                     bool judge2 = false;
+                    int price = 0;
 
                     foreach (Car temp in cars)
                     {
                         if (temp.cid == cid4.Text)
                         {
                             judge = true;
+                            price = temp.cprice;
                             break;
                         }
                     }
@@ -308,8 +310,9 @@ namespace DataBase.Pages
 
                     if (judge && judge2)
                     {
-
-                        Customer_trade_data customer_Trade_Data = new Customer_trade_data { ctid = ctid.Text, ctprice = String2int(ctprice.Text), cid = cid4.Text, cuid = cuid2.Text, ctnum = String2int(ctnum2.Text) };
+                        Debug.Write(price);
+                        price = (String2int(ctprice.Text) - price) * String2int(ctnum2.Text);
+                        Customer_trade_data customer_Trade_Data = new Customer_trade_data { ctid = ctid.Text, ctprice = String2int(ctprice.Text), cid = cid4.Text, cuid = cuid2.Text, ctnum = String2int(ctnum2.Text), cprofit = price  };
                         SqlHelper.AddCustomer_trade_data(customer_Trade_Data, "customer_trade_data");
                         SqlHelper.GetAllCustomer_trade_data(customer_Trade_Datas, "Customer_trade_data");
                         SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
