@@ -737,7 +737,8 @@ namespace DataBase.Service
             string sql = "SELECT SUM(cprofit) FROM " + tableName;
             using (var statement = connection.Prepare(sql)) {
                 statement.Step();
-                return (int)(long)statement[0];
+                
+                return statement[0] == null ? 0 : (int)(long)statement[0];
             }
         }
     }
