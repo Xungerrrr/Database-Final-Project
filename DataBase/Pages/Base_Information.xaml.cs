@@ -159,17 +159,13 @@ namespace DataBase.Pages
                         FactorysList.Visibility = Visibility.Visible;
                         CustomeList.Visibility = Visibility.Collapsed;
                         Carlist.Visibility = Visibility.Collapsed;
-                        Customer_trade_datalist.Visibility = Visibility.Collapsed;
-                        Factory_trade_datalist.Visibility = Visibility.Collapsed;
-                        Garagelist.Visibility = Visibility.Collapsed;
+
 
 
                         FactorysGrid.Visibility = Visibility.Visible;
                         CustomeGrid.Visibility = Visibility.Collapsed;
                         CarGrid.Visibility = Visibility.Collapsed;
-                        Customer_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        Factory_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        GarageGrid.Visibility = Visibility.Collapsed;
+
                         break;
                 }
                 case 1:
@@ -177,17 +173,13 @@ namespace DataBase.Pages
                         FactorysList.Visibility = Visibility.Collapsed;
                         CustomeList.Visibility = Visibility.Visible;
                         Carlist.Visibility = Visibility.Collapsed;
-                        Customer_trade_datalist.Visibility = Visibility.Collapsed;
-                        Factory_trade_datalist.Visibility = Visibility.Collapsed;
-                        Garagelist.Visibility = Visibility.Collapsed;
+
 
 
                         FactorysGrid.Visibility = Visibility.Collapsed;
                         CustomeGrid.Visibility = Visibility.Visible;
                         CarGrid.Visibility = Visibility.Collapsed;
-                        Customer_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        Factory_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        GarageGrid.Visibility = Visibility.Collapsed;
+
                         break;
                 }
                 case 2:
@@ -195,16 +187,12 @@ namespace DataBase.Pages
                         FactorysList.Visibility = Visibility.Collapsed;
                         CustomeList.Visibility = Visibility.Collapsed;
                         Carlist.Visibility = Visibility.Visible;
-                        Customer_trade_datalist.Visibility = Visibility.Collapsed;
-                        Factory_trade_datalist.Visibility = Visibility.Collapsed;
-                        Garagelist.Visibility = Visibility.Collapsed;
+
 
                         FactorysGrid.Visibility = Visibility.Collapsed;
                         CustomeGrid.Visibility = Visibility.Collapsed;
                         CarGrid.Visibility = Visibility.Visible;
-                        Customer_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        Factory_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        GarageGrid.Visibility = Visibility.Collapsed;
+
                         break;
                 }
                 case 3:
@@ -212,16 +200,12 @@ namespace DataBase.Pages
                         FactorysList.Visibility = Visibility.Collapsed;
                         CustomeList.Visibility = Visibility.Collapsed;
                         Carlist.Visibility = Visibility.Collapsed;
-                        Customer_trade_datalist.Visibility = Visibility.Visible;
-                        Factory_trade_datalist.Visibility = Visibility.Collapsed;
-                        Garagelist.Visibility = Visibility.Collapsed;
+
 
                         FactorysGrid.Visibility = Visibility.Collapsed;
                         CustomeGrid.Visibility = Visibility.Collapsed;
                         CarGrid.Visibility = Visibility.Collapsed;
-                        Customer_trade_dataGrid.Visibility = Visibility.Visible;
-                        Factory_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        GarageGrid.Visibility = Visibility.Collapsed;
+
                         break;
                 }
                 case 4:
@@ -229,16 +213,12 @@ namespace DataBase.Pages
                         FactorysList.Visibility = Visibility.Collapsed;
                         CustomeList.Visibility = Visibility.Collapsed;
                         Carlist.Visibility = Visibility.Collapsed;
-                        Customer_trade_datalist.Visibility = Visibility.Collapsed;
-                        Factory_trade_datalist.Visibility = Visibility.Visible;
-                        Garagelist.Visibility = Visibility.Collapsed;
+
 
                         FactorysGrid.Visibility = Visibility.Collapsed;
                         CustomeGrid.Visibility = Visibility.Collapsed;
                         CarGrid.Visibility = Visibility.Collapsed;
-                        Customer_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        Factory_trade_dataGrid.Visibility = Visibility.Visible;
-                        GarageGrid.Visibility = Visibility.Collapsed;
+
                         break;
                 }
                 case 5:
@@ -246,17 +226,13 @@ namespace DataBase.Pages
                         FactorysList.Visibility = Visibility.Collapsed;
                         CustomeList.Visibility = Visibility.Collapsed;
                         Carlist.Visibility = Visibility.Collapsed;
-                        Customer_trade_datalist.Visibility = Visibility.Collapsed;
-                        Factory_trade_datalist.Visibility = Visibility.Collapsed;
-                        Garagelist.Visibility = Visibility.Visible;
+
 
 
                         FactorysGrid.Visibility = Visibility.Collapsed;
                         CustomeGrid.Visibility = Visibility.Collapsed;
                         CarGrid.Visibility = Visibility.Collapsed;
-                        Customer_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        Factory_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        GarageGrid.Visibility = Visibility.Visible;
+
                         break;
                 }
             }
