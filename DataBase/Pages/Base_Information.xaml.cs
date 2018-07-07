@@ -105,6 +105,7 @@ namespace DataBase.Pages
                 case 0:
                     {
                         info_update.id = ((Factor)s.DataContext).fid;
+                        info_update.id2 = "";
                         break;
                     }
                 case 1:
@@ -114,7 +115,8 @@ namespace DataBase.Pages
                     }
                 case 2:
                     {
-                        info_update.id = ((Car)s.DataContext).cid;
+                        info_update.id = ((Car)s.DataContext).fid;
+                        info_update.id2 = ((Car)s.DataContext).cid;
                         break;
                     }
                 case 3:

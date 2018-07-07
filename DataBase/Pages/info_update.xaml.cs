@@ -33,6 +33,7 @@ namespace DataBase.Pages
         public int smallIndex;
         public static int type { get; set; } = 0;
         public static string id { get; set; }
+        public static string id2 { get; set; }
         public info_update()
         {
             this.InitializeComponent();
@@ -104,7 +105,19 @@ namespace DataBase.Pages
                     Car_info.Visibility = Visibility.Visible;
                     ObservableCollection<Car> cars = new ObservableCollection<Car>();
                     ObservableCollection<Factor> factors = new ObservableCollection<Factor>();
-                    SqlHelper.GetAllCar(cars, "car", id);
+                    SqlHelper.GetAllCar(cars, "car", id2);
+
+                    if (id2.Equals(""))
+                    {
+                        cid.Visibility = Visibility.Collapsed;
+                        cbrand.Visibility = Visibility.Collapsed;
+                        cprice.Visibility = Visibility.Collapsed;
+                        a1.Visibility = Visibility.Collapsed;
+                        a2.Visibility = Visibility.Collapsed;
+                        a3.Visibility = Visibility.Collapsed;
+                    }
+
+
                     SqlHelper.GetAllFactor(factors, "factor", id);
                     fid.Text = factors[0].fid;
                     fname.Text = factors[0].fname;
