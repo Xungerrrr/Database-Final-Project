@@ -25,7 +25,7 @@
 
 
 
-        <Grid Margin="20, 10, 0, 10" Name="FactorsGrid" >
+        <Grid Margin="20, 10, 0, 10" Name="FactorysGrid" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
@@ -38,14 +38,14 @@
             <TextBlock Text="操作" Grid.Column="3" VerticalAlignment="Center"/>
         </Grid>
         <Line Height="5" Stretch="Fill" Stroke="Black" StrokeThickness="0.3" X1="1" Margin="-20, 5, -20, 5"/>
-        <ListView Name="FactorsList" ItemsSource="{x:Bind factors}" IsItemClickEnabled="True" ItemClick="FactorsList_ItemClick">
+        <ListView Name="FactorysList" ItemsSource="{x:Bind factorys}" IsItemClickEnabled="True" ItemClick="FactorysList_ItemClick">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="md:Factor">
+                <DataTemplate x:DataType="md:Factory">
                     <UserControl>
                         <Grid Height="auto" Margin="10, 0, 0, 0">
                             <Grid.ColumnDefinitions>
@@ -84,7 +84,7 @@
             <TextBlock Text="客户住址" Grid.Column="2" VerticalAlignment="Center"/>
             <TextBlock Text="操作" Grid.Column="3" VerticalAlignment="Center"/>
         </Grid>
-        <ListView Name="CustomeList" Visibility="Collapsed" ItemsSource="{x:Bind customers}" IsItemClickEnabled="True" ItemClick="FactorsList_ItemClick">
+        <ListView Name="CustomeList" Visibility="Collapsed" ItemsSource="{x:Bind customers}" IsItemClickEnabled="True" ItemClick="FactorysList_ItemClick">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -132,7 +132,7 @@
             <TextBlock Text="厂商编号" Grid.Column="3" VerticalAlignment="Center"/>
             <TextBlock Text="操作" Grid.Column="4" VerticalAlignment="Center"/>
         </Grid>
-        <ListView Name="Carlist" Visibility="Collapsed" ItemsSource="{x:Bind cars}" IsItemClickEnabled="True" ItemClick="FactorsList_ItemClick">
+        <ListView Name="Carlist" Visibility="Collapsed" ItemsSource="{x:Bind cars}" IsItemClickEnabled="True" ItemClick="FactorysList_ItemClick">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -184,7 +184,7 @@
             <TextBlock Text="客户编号" Grid.Column="4" VerticalAlignment="Center"/>
             <TextBlock Text="操作" Grid.Column="5" VerticalAlignment="Center"/>
         </Grid>
-        <ListView Name="Customer_trade_datalist" Visibility="Collapsed" ItemsSource="{x:Bind customer_Trade_Datas}" IsItemClickEnabled="True" ItemClick="FactorsList_ItemClick">
+        <ListView Name="Customer_trade_datalist" Visibility="Collapsed" ItemsSource="{x:Bind customer_Trade_Datas}" IsItemClickEnabled="True" ItemClick="FactorysList_ItemClick">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -222,7 +222,7 @@
         </ListView>
 
 
-        <Grid Margin="20, 10, 0, 10" Name="Factor_trade_dataGrid" Visibility="Collapsed">
+        <Grid Margin="20, 10, 0, 10" Name="Factory_trade_dataGrid" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
@@ -238,14 +238,14 @@
             <TextBlock Text="厂商编号" Grid.Column="4" VerticalAlignment="Center"/>
             <TextBlock Text="操作" Grid.Column="5" VerticalAlignment="Center"/>
         </Grid>
-        <ListView Name="Factor_trade_datalist" Visibility="Collapsed" ItemsSource="{x:Bind factor_Trade_Datas}" IsItemClickEnabled="True" ItemClick="FactorsList_ItemClick">
+        <ListView Name="Factory_trade_datalist" Visibility="Collapsed" ItemsSource="{x:Bind factory_Trade_Datas}" IsItemClickEnabled="True" ItemClick="FactorysList_ItemClick">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="md:Factor_trade_data">
+                <DataTemplate x:DataType="md:Factory_trade_data">
                     <UserControl>
                         <Grid Height="auto" Margin="10, 0, 0, 0">
                             <Grid.ColumnDefinitions>
@@ -277,7 +277,7 @@
 
 
 
-        <Grid Margin="20, 10, 0, 10" Name="GarbageGrid" Visibility="Collapsed">
+        <Grid Margin="20, 10, 0, 10" Name="GarageGrid" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
@@ -289,14 +289,14 @@
             <TextBlock Text="汽车数目" Grid.Column="2" VerticalAlignment="Center"/>
             <TextBlock Text="操作" Grid.Column="3" VerticalAlignment="Center"/>
         </Grid>
-        <ListView Name="Garbagelist" Visibility="Collapsed" ItemsSource="{x:Bind garbages}" IsItemClickEnabled="True" ItemClick="FactorsList_ItemClick">
+        <ListView Name="Garagelist" Visibility="Collapsed" ItemsSource="{x:Bind garages}" IsItemClickEnabled="True" ItemClick="FactorysList_ItemClick">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="md:Garbage">
+                <DataTemplate x:DataType="md:Garage">
                     <UserControl>
                         <Grid Height="auto" Margin="10, 0, 0, 0">
                             <Grid.ColumnDefinitions>

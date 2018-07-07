@@ -109,14 +109,14 @@
                         <TextBlock Text="厂商编号" Grid.Column="4" VerticalAlignment="Center"/>
                         <TextBlock Text="操作" Grid.Column="5" VerticalAlignment="Center"/>
                     </Grid>
-                    <ListView Name="Car_info2" Visibility="Collapsed" ItemsSource="{x:Bind factor_Trade_Datas}" IsItemClickEnabled="True">
+                    <ListView Name="Car_info2" Visibility="Collapsed" ItemsSource="{x:Bind factory_Trade_Datas}" IsItemClickEnabled="True">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="md:Factor_trade_data">
+                            <DataTemplate x:DataType="md:Factory_trade_data">
                                 <UserControl>
                                     <Grid Height="auto" Margin="10, 0, 0, 0">
                                         <Grid.ColumnDefinitions>
@@ -144,7 +144,7 @@
                    
 
 
-                    <Grid Name="Garbage_info" Margin="20, 10, 0, 10" Width="400" >
+                    <Grid Name="Garage_info" Margin="20, 10, 0, 10" Width="400" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="2*"/>

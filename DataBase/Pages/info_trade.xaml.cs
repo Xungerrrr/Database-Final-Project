@@ -30,7 +30,7 @@ namespace DataBase.Pages
         ArrayList smallbases = new ArrayList();
         private ObservableCollection<Base> bases = new ObservableCollection<Base>();
         private ObservableCollection<Customer_trade_data> customer_Trade_Datas = new ObservableCollection<Customer_trade_data>();
-        private ObservableCollection<Factor_trade_data> factor_Trade_Datas = new ObservableCollection<Factor_trade_data>();
+        private ObservableCollection<Factory_trade_data> factory_Trade_Datas = new ObservableCollection<Factory_trade_data>();
         public int nowIndex;
         public int smallIndex;
         public info_trade()
@@ -55,7 +55,7 @@ namespace DataBase.Pages
             help();
             in_info.Visibility = Visibility.Visible;
             SqlHelper.GetAllCustomer_trade_data(customer_Trade_Datas, "Customer_trade_data");
-            SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
+            SqlHelper.GetAllFactory_trade_data(factory_Trade_Datas, "factory_trade_data");
         }
 
         private void help()
@@ -64,7 +64,7 @@ namespace DataBase.Pages
             Car_info2.Visibility = Visibility.Collapsed;
             Custom_info.Visibility = Visibility.Collapsed;
             Custom_info2.Visibility = Visibility.Collapsed;
-            Garbage_info.Visibility = Visibility.Collapsed;
+            Garage_info.Visibility = Visibility.Collapsed;
             in_info.Visibility = Visibility.Collapsed;
             out_info.Visibility = Visibility.Collapsed;
             Total_profit.Visibility = Visibility.Collapsed;
@@ -88,7 +88,7 @@ namespace DataBase.Pages
                 }
                 else
                 {
-                    Garbage_info.Visibility = Visibility.Visible;
+                    Garage_info.Visibility = Visibility.Visible;
                 }
             }
             else
@@ -175,8 +175,8 @@ namespace DataBase.Pages
                     }
                 case 0:
                     {
-                        SqlHelper.DeleteFactor_trade_data("factor_trade_data", (Factor_trade_data)s.DataContext);
-                        SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
+                        SqlHelper.DeleteFactory_trade_data("factory_trade_data", (Factory_trade_data)s.DataContext);
+                        SqlHelper.GetAllFactory_trade_data(factory_Trade_Datas, "factory_trade_data");
                         break;
                     }
             }
@@ -193,7 +193,7 @@ namespace DataBase.Pages
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (
-                (Garbage_info.Visibility == Visibility.Visible &&
+                (Garage_info.Visibility == Visibility.Visible &&
                 (qid.Text == "" || ctnum.Text == "" || cid2.Text == "")) ||
                 (in_info.Visibility == Visibility.Visible &&
                 (ftid.Text == "" || ftprice.Text == "" || ftnum.Text == "" ||
@@ -214,10 +214,10 @@ namespace DataBase.Pages
             }
             if (smallIndex == 0)
             {
-                Factor_trade_data factor_Trade_Data = new Factor_trade_data { ftid = ftid.Text, ftprice = String2int(ftprice.Text), cid = cid3.Text, fid = fid2.Text, ftnum = String2int(ftnum.Text) };
-                String message1 = SqlHelper.AddFactor_trade_data(factor_Trade_Data, "Factor_trade_data");
+                Factory_trade_data factory_Trade_Data = new Factory_trade_data { ftid = ftid.Text, ftprice = String2int(ftprice.Text), cid = cid3.Text, fid = fid2.Text, ftnum = String2int(ftnum.Text) };
+                String message1 = SqlHelper.AddFactory_trade_data(factory_Trade_Data, "Factory_trade_data");
                 String message2 = SqlHelper.GetAllCustomer_trade_data(customer_Trade_Datas, "Customer_trade_data");
-                String message3 = SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
+                String message3 = SqlHelper.GetAllFactory_trade_data(factory_Trade_Datas, "factory_trade_data");
                 String feedback = "";
                 if (message1 != "not an error")
                 {
@@ -247,14 +247,14 @@ namespace DataBase.Pages
                 ObservableCollection<Car> cars = new ObservableCollection<Car>();
                 SqlHelper.GetAllCar(cars, "car");
                 ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
-                ObservableCollection<Factor_trade_data> factor_Trade_Datas = new ObservableCollection<Factor_trade_data>();
+                ObservableCollection<Factory_trade_data> factory_Trade_Datas = new ObservableCollection<Factory_trade_data>();
                 SqlHelper.GetAllCustomer(customers, "Customer");
-                SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "Factor_Trade_Data");
+                SqlHelper.GetAllFactory_trade_data(factory_Trade_Datas, "Factory_Trade_Data");
                 bool judge = false;
                 bool judge2 = false;
                 int price = 0;
                 int count = 0;
-                foreach (Factor_trade_data temp in factor_Trade_Datas)
+                foreach (Factory_trade_data temp in factory_Trade_Datas)
                 {
                     if (temp.cid == cid4.Text)
                     {
@@ -279,9 +279,9 @@ namespace DataBase.Pages
                 if (judge && judge2)
                 {
                     int temp_ctnum = 0;
-                    ObservableCollection<Garbage> temp_g = new ObservableCollection<Garbage>();
-                    SqlHelper.GetAllGarbage(temp_g, "garbage");
-                    foreach (Garbage temp in temp_g)
+                    ObservableCollection<Garage> temp_g = new ObservableCollection<Garage>();
+                    SqlHelper.GetAllGarage(temp_g, "garage");
+                    foreach (Garage temp in temp_g)
                     {
                         if (temp.cid == cid4.Text)
                         {
@@ -307,7 +307,7 @@ namespace DataBase.Pages
                     Customer_trade_data customer_Trade_Data = new Customer_trade_data { ctid = ctid.Text, ctprice = String2int(ctprice.Text), cid = cid4.Text, cuid = cuid2.Text, ctnum = String2int(ctnum2.Text), cprofit = price  };
                     SqlHelper.AddCustomer_trade_data(customer_Trade_Data, "customer_trade_data");
                     SqlHelper.GetAllCustomer_trade_data(customer_Trade_Datas, "Customer_trade_data");
-                    SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
+                    SqlHelper.GetAllFactory_trade_data(factory_Trade_Datas, "factory_trade_data");
                     Cleanhelp();
                     var dialog = new ContentDialog()
                     {

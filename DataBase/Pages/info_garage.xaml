@@ -14,7 +14,7 @@
         </Grid>
 
         <Line Height="5" Stretch="Fill" Stroke="Black" StrokeThickness="0.3" X1="1" Margin="-20, 5, -20, 5"/>
-        <Grid Margin="20, 10, 0, 10" Name="GarbageGrid">
+        <Grid Margin="20, 10, 0, 10" Name="GarageGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
@@ -31,7 +31,7 @@
             <TextBlock Text="产商地址" Grid.Column="5" VerticalAlignment="Center"/>
         </Grid>
         <Line Height="5" Stretch="Fill" Stroke="Black" StrokeThickness="0.5" X1="1" Margin="-20, 5, -20, 5"/>
-        <ListView Name="Garbagelist" ItemsSource="{x:Bind bases}" IsItemClickEnabled="True">
+        <ListView Name="Garagelist" ItemsSource="{x:Bind bases}" IsItemClickEnabled="True">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

@@ -23,8 +23,8 @@ namespace DataBase.Service
                 SQLiteResult result = statement.Step();
             }
 
-            string FactorSql = @"CREATE TABLE IF NOT EXISTS
-                Factor( fid             VARCHAR(10) PRIMARY KEY NOT NULL,
+            string FactorySql = @"CREATE TABLE IF NOT EXISTS
+                Factory( fid             VARCHAR(10) PRIMARY KEY NOT NULL,
                         fname           VARCHAR(10),
                         faddress        VARCHAR(100)
             );";
@@ -34,7 +34,7 @@ namespace DataBase.Service
                         cbrand          VARCHAR(10),
                         cprice          INTEGER,
                         fid             VARCHAR(10),
-                        FOREIGN KEY(fid) REFERENCES Factor(fid)
+                        FOREIGN KEY(fid) REFERENCES Factory(fid)
             );";
 
             string CustomSql = @"CREATE TABLE IF NOT EXISTS
@@ -43,12 +43,12 @@ namespace DataBase.Service
                         cuaddress       VARCHAR(100)
             );";
 
-            string Factor_trade_dataSql = @"CREATE TABLE IF NOT EXISTS
-                Factor_trade_data( 
+            string Factory_trade_dataSql = @"CREATE TABLE IF NOT EXISTS
+                Factory_trade_data( 
                         ftid            VARCHAR(10) PRIMARY KEY NOT NULL,
                         ftprice         INTEGER,
                         ftnum           INTEGER,
-                        fid             VARCHAR(10) REFERENCES Factor(fid) ON UPDATE CASCADE,
+                        fid             VARCHAR(10) REFERENCES Factory(fid) ON UPDATE CASCADE,
                         cid             VARCHAR(10) REFERENCES Car(cid) ON UPDATE CASCADE               
             );";
 
@@ -62,38 +62,38 @@ namespace DataBase.Service
                         cprofit         INTEGER
             );";
 
-            string GarbageSql = @"CREATE TABLE IF NOT EXISTS
-                Garbage( 
+            string GarageSql = @"CREATE TABLE IF NOT EXISTS
+                Garage( 
                         gid             VARCHAR(10) PRIMARY KEY NOT NULL,                     
                         ctnum           INTEGER,
                         cid             VARCHAR(10), 
                         FOREIGN KEY(cid) REFERENCES Car(cid) ON UPDATE CASCADE 
             );";
 
-            using (var statement = connection.Prepare(FactorSql))
+            using (var statement = connection.Prepare(FactorySql))
                 statement.Step();
             using (var statement = connection.Prepare(CarSql))
                 statement.Step();
             using (var statement = connection.Prepare(CustomSql))
                 statement.Step();
-            using (var statement = connection.Prepare(Factor_trade_dataSql))
+            using (var statement = connection.Prepare(Factory_trade_dataSql))
                 statement.Step();
             using (var statement = connection.Prepare(Customer_trade_dataSql))
                 statement.Step();
-            using (var statement = connection.Prepare(GarbageSql))
+            using (var statement = connection.Prepare(GarageSql))
                 statement.Step();
         }
 		
 		//插入工厂数据
-		public static String AddFactor(Factor factor, string tableName)
+		public static String AddFactory(Factory factory, string tableName)
         {
             try
             {
                 using (var statement = connection.Prepare("INSERT INTO " + tableName + "(fid, fname, faddress) VALUES (?, ?, ?)"))
                 {
-                    statement.Bind(1, factor.fid);
-                    statement.Bind(2, factor.fname);
-                    statement.Bind(3, factor.faddress);
+                    statement.Bind(1, factory.fid);
+                    statement.Bind(2, factory.fname);
+                    statement.Bind(3, factory.faddress);
                     statement.Step();
                 }
             }
@@ -148,33 +148,33 @@ namespace DataBase.Service
         }
 		
 		//插入工厂交易记录
-		public static String AddFactor_trade_data(Factor_trade_data factor_trade_data, string tableName)
+		public static String AddFactory_trade_data(Factory_trade_data factory_trade_data, string tableName)
         {
-            ObservableCollection<Garbage> garbages = new ObservableCollection<Garbage>();
-            GetAllGarbage(garbages, "garbage");
+            ObservableCollection<Garage> garages = new ObservableCollection<Garage>();
+            GetAllGarage(garages, "garage");
             bool w_in = false;
             int temp_ctnum = 0;
             String message = "";
-            foreach (Garbage garbage in garbages)
+            foreach (Garage garage in garages)
             {
-                if(garbage.cid == factor_trade_data.cid)
+                if(garage.cid == factory_trade_data.cid)
                 {
                     w_in = true;
-                    temp_ctnum = garbage.ctnum;
+                    temp_ctnum = garage.ctnum;
                     Debug.Write(temp_ctnum);
                     break;
                 }
             }
             if (w_in)
             {
-                String UPDATE = "UPDATE " + "garbage" + " SET ctnum = ? WHERE cid = ?";
-                int ctnum = temp_ctnum + factor_trade_data.ftnum;
+                String UPDATE = "UPDATE " + "garage" + " SET ctnum = ? WHERE cid = ?";
+                int ctnum = temp_ctnum + factory_trade_data.ftnum;
                 try
                 {
                     using (var statement = connection.Prepare(UPDATE))
                     {
                         statement.Bind(1, ctnum);
-                        statement.Bind(2, factor_trade_data.cid);
+                        statement.Bind(2, factory_trade_data.cid);
                         statement.Step();
                     }
                 }
@@ -186,19 +186,19 @@ namespace DataBase.Service
             }
             else
             {
-                Garbage garbage = new Garbage { gid = factor_trade_data.cid, cid = factor_trade_data.cid, ctnum = factor_trade_data.ftnum };
-                message =  AddGarbage(garbage, "Garbage");
+                Garage garage = new Garage { gid = factory_trade_data.cid, cid = factory_trade_data.cid, ctnum = factory_trade_data.ftnum };
+                message =  AddGarage(garage, "Garage");
             }
 
             try
             {
                 using (var statement = connection.Prepare("INSERT INTO " + tableName + "(ftid, ftprice, ftnum, fid, cid) VALUES (?, ?, ?, ?, ?)"))
                 {
-                    statement.Bind(1, factor_trade_data.ftid);
-                    statement.Bind(2, factor_trade_data.ftprice);
-					statement.Bind(3, factor_trade_data.ftnum);
-                    statement.Bind(4, factor_trade_data.fid);
-                    statement.Bind(5, factor_trade_data.cid);
+                    statement.Bind(1, factory_trade_data.ftid);
+                    statement.Bind(2, factory_trade_data.ftprice);
+					statement.Bind(3, factory_trade_data.ftnum);
+                    statement.Bind(4, factory_trade_data.fid);
+                    statement.Bind(5, factory_trade_data.cid);
                     statement.Step();
                 }
             }
@@ -221,18 +221,18 @@ namespace DataBase.Service
         //插入用户交易记录
         public static String AddCustomer_trade_data(Customer_trade_data customer_trade_data, string tableName)
         {
-            ObservableCollection<Garbage> garbages = new ObservableCollection<Garbage>();
-            GetAllGarbage(garbages, "garbage");
+            ObservableCollection<Garage> garages = new ObservableCollection<Garage>();
+            GetAllGarage(garages, "garage");
             Car temp_car = new Car();
             int temp_ctnum = 0;
-            foreach (Garbage temp in garbages)
+            foreach (Garage temp in garages)
             {
                 if (temp.cid == customer_trade_data.cid)
                 {
                     temp_ctnum = temp.ctnum;
                 }
             }
-            String UPDATE = "UPDATE " + "garbage" + " SET ctnum = ? WHERE cid = ?";
+            String UPDATE = "UPDATE " + "garage" + " SET ctnum = ? WHERE cid = ?";
             try
             {
                 using (var statement = connection.Prepare(UPDATE))
@@ -278,15 +278,15 @@ namespace DataBase.Service
 
 
         //插入用户交易记录
-        public static String AddGarbage(Garbage garbage, string tableName)
+        public static String AddGarage(Garage garage, string tableName)
         {
             try
             {
                 using (var statement = connection.Prepare("INSERT INTO " + tableName + "(gid, ctnum, cid) VALUES (?, ?, ?)"))
                 {
-                    statement.Bind(1, garbage.gid);
-                    statement.Bind(2, garbage.ctnum);
-                    statement.Bind(3, garbage.cid);
+                    statement.Bind(1, garage.gid);
+                    statement.Bind(2, garage.ctnum);
+                    statement.Bind(3, garage.cid);
                     statement.Step();
                 }
                 Debug.WriteLine(connection.ErrorMessage().ToString());
@@ -300,9 +300,9 @@ namespace DataBase.Service
 
 
         //获取信息
-        public static String GetAllFactor(ObservableCollection<Factor> factors, string tableName, string searchStr = "")
+        public static String GetAllFactory(ObservableCollection<Factory> factorys, string tableName, string searchStr = "")
         {
-            factors.Clear();
+            factorys.Clear();
             string sql = "SELECT * FROM " + tableName;
             if (searchStr != "")
             {
@@ -311,11 +311,11 @@ namespace DataBase.Service
                 {
                     while (statement.Step() == SQLiteResult.ROW)
                     {
-                        Factor factor = new Factor();
-                        factor.fid = (string)statement[0];
-                        factor.fname = (string)statement[1];
-                        factor.faddress = (string)statement[2];
-                        factors.Add(factor);
+                        Factory factory = new Factory();
+                        factory.fid = (string)statement[0];
+                        factory.fname = (string)statement[1];
+                        factory.faddress = (string)statement[2];
+                        factorys.Add(factory);
                     }
                 }
                 return connection.ErrorMessage().ToString();
@@ -324,11 +324,11 @@ namespace DataBase.Service
             {
                 while (statement.Step() == SQLiteResult.ROW)
                 {
-                    Factor factor = new Factor();
-                    factor.fid = (string)statement[0];
-                    factor.fname = (string)statement[1];
-                    factor.faddress = (string)statement[2];
-                    factors.Add(factor);
+                    Factory factory = new Factory();
+                    factory.fid = (string)statement[0];
+                    factory.fname = (string)statement[1];
+                    factory.faddress = (string)statement[2];
+                    factorys.Add(factory);
                 }
             }
             return connection.ErrorMessage().ToString();
@@ -452,9 +452,9 @@ namespace DataBase.Service
 
 
         //获取厂商交易信息
-        public static String GetAllFactor_trade_data(ObservableCollection<Factor_trade_data> factor_Trade_Datas, string tableName, string searchStr = "")
+        public static String GetAllFactory_trade_data(ObservableCollection<Factory_trade_data> factory_Trade_Datas, string tableName, string searchStr = "")
         {
-            factor_Trade_Datas.Clear();
+            factory_Trade_Datas.Clear();
             string sql = "SELECT * FROM " + tableName;
             if (searchStr != "")
             {
@@ -463,13 +463,13 @@ namespace DataBase.Service
                 {
                     while (statement.Step() == SQLiteResult.ROW)
                     {
-                        Factor_trade_data factor_Trade_Data = new Factor_trade_data();
-                        factor_Trade_Data.ftid = (string)statement[0];
-                        factor_Trade_Data.ftprice = (int)(long)statement[1];
-                        factor_Trade_Data.ftnum = (int)(long)statement[2];
-                        factor_Trade_Data.fid = (string)statement[3];
-                        factor_Trade_Data.cid = (string)statement[4];
-                        factor_Trade_Datas.Add(factor_Trade_Data);
+                        Factory_trade_data factory_Trade_Data = new Factory_trade_data();
+                        factory_Trade_Data.ftid = (string)statement[0];
+                        factory_Trade_Data.ftprice = (int)(long)statement[1];
+                        factory_Trade_Data.ftnum = (int)(long)statement[2];
+                        factory_Trade_Data.fid = (string)statement[3];
+                        factory_Trade_Data.cid = (string)statement[4];
+                        factory_Trade_Datas.Add(factory_Trade_Data);
                     }
                 }
                 return connection.ErrorMessage().ToString();
@@ -478,13 +478,13 @@ namespace DataBase.Service
             {
                 while (statement.Step() == SQLiteResult.ROW)
                 {
-                    Factor_trade_data factor_Trade_Data = new Factor_trade_data();
-                    factor_Trade_Data.ftid = (string)statement[0];
-                    factor_Trade_Data.ftprice = (int)(long)statement[1];
-                    factor_Trade_Data.ftnum = (int)(long)statement[2];
-                    factor_Trade_Data.fid = (string)statement[3];
-                    factor_Trade_Data.cid = (string)statement[4];
-                    factor_Trade_Datas.Add(factor_Trade_Data);
+                    Factory_trade_data factory_Trade_Data = new Factory_trade_data();
+                    factory_Trade_Data.ftid = (string)statement[0];
+                    factory_Trade_Data.ftprice = (int)(long)statement[1];
+                    factory_Trade_Data.ftnum = (int)(long)statement[2];
+                    factory_Trade_Data.fid = (string)statement[3];
+                    factory_Trade_Data.cid = (string)statement[4];
+                    factory_Trade_Datas.Add(factory_Trade_Data);
                 }
             }
             return connection.ErrorMessage().ToString();
@@ -492,9 +492,9 @@ namespace DataBase.Service
 
 
         //获取车库信息
-        public static String GetAllGarbage(ObservableCollection<Garbage> garbages, string tableName, string searchStr = "")
+        public static String GetAllGarage(ObservableCollection<Garage> garages, string tableName, string searchStr = "")
         {
-            garbages.Clear();
+            garages.Clear();
             string sql = "SELECT * FROM " + tableName;
             if (searchStr != "")
             {
@@ -503,11 +503,11 @@ namespace DataBase.Service
                 {
                     while (statement.Step() == SQLiteResult.ROW)
                     {
-                        Garbage garbage = new Garbage();
-                        garbage.gid = (string)statement[0];
-                        garbage.ctnum = (int)(long)statement[1];
-                        garbage.cid = (string)statement[2];
-                        garbages.Add(garbage);
+                        Garage garage = new Garage();
+                        garage.gid = (string)statement[0];
+                        garage.ctnum = (int)(long)statement[1];
+                        garage.cid = (string)statement[2];
+                        garages.Add(garage);
                     }
                 }
                 return connection.ErrorMessage().ToString();
@@ -516,11 +516,11 @@ namespace DataBase.Service
             {
                 while (statement.Step() == SQLiteResult.ROW)
                 {
-                    Garbage garbage = new Garbage();
-                    garbage.gid = (string)statement[0];
-                    garbage.ctnum = (int)(long)statement[1];
-                    garbage.cid = (string)statement[2];
-                    garbages.Add(garbage);
+                    Garage garage = new Garage();
+                    garage.gid = (string)statement[0];
+                    garage.ctnum = (int)(long)statement[1];
+                    garage.cid = (string)statement[2];
+                    garages.Add(garage);
                 }
             }
             return connection.ErrorMessage().ToString();
@@ -530,14 +530,14 @@ namespace DataBase.Service
         //删除信息
 
 
-        //删除Factor
-        public static String DeleteFactor(string tableName, Factor factor)
+        //删除Factory
+        public static String DeleteFactory(string tableName, Factory factory)
         {
             try
             {
                 using (var statement = connection.Prepare("DELETE FROM " + tableName + " WHERE " + "fid = ?" ))
                 {
-                    statement.Bind(1, factor.fid);
+                    statement.Bind(1, factory.fid);
                     statement.Step();
                 }
             }
@@ -600,13 +600,13 @@ namespace DataBase.Service
             return connection.ErrorMessage().ToString();
         }
 
-        public static String DeleteFactor_trade_data(string tableName, Factor_trade_data factor_Trade_Data)
+        public static String DeleteFactory_trade_data(string tableName, Factory_trade_data factory_Trade_Data)
         {
             try
             {
                 using (var statement = connection.Prepare("DELETE FROM " + tableName + " WHERE " + "ftid = ?"))
                 {
-                    statement.Bind(1, factor_Trade_Data.ftid);
+                    statement.Bind(1, factory_Trade_Data.ftid);
                     statement.Step();
                 }
             }
@@ -617,13 +617,13 @@ namespace DataBase.Service
             return connection.ErrorMessage().ToString();
         }
 
-        public static String DeleteGarbage(string tableName, Garbage garbage)
+        public static String DeleteGarage(string tableName, Garage garage)
         {
             try
             {
                 using (var statement = connection.Prepare("DELETE FROM " + tableName + " WHERE " + "gid = ?"))
                 {
-                    statement.Bind(1, garbage.gid);
+                    statement.Bind(1, garage.gid);
                     statement.Step();
                 }
             }
@@ -634,15 +634,15 @@ namespace DataBase.Service
             return connection.ErrorMessage().ToString();
         }
 
-        public static String UpdateGarbage(string tableName, Garbage garbage)
+        public static String UpdateGarage(string tableName, Garage garage)
         {
             try
             {
                 using (var statement = connection.Prepare("UPDATE " + tableName + " SET ctnum = ?, cid = ? WHERE gid = ?"))
                 {
-                    statement.Bind(1, garbage.ctnum);
-                    statement.Bind(2, garbage.cid);
-                    statement.Bind(3, garbage.gid);
+                    statement.Bind(1, garage.ctnum);
+                    statement.Bind(2, garage.cid);
+                    statement.Bind(3, garage.gid);
                     statement.Step();
                 }
                 Debug.WriteLine(connection.ErrorMessage().ToString());
@@ -673,15 +673,15 @@ namespace DataBase.Service
             return connection.ErrorMessage().ToString();
         }
 
-        public static String UpdateFactor(string tableName, Factor factor)
+        public static String UpdateFactory(string tableName, Factory factory)
         {
             try
             {
                 using (var statement = connection.Prepare("UPDATE " + tableName + " SET fname = ?, faddress = ? WHERE fid = ?"))
                 {
-                    statement.Bind(1, factor.fname);
-                    statement.Bind(2, factor.faddress);
-                    statement.Bind(3, factor.fid);
+                    statement.Bind(1, factory.fname);
+                    statement.Bind(2, factory.faddress);
+                    statement.Bind(3, factory.fid);
                     statement.Step();
                 }
             }
@@ -712,15 +712,15 @@ namespace DataBase.Service
             return connection.ErrorMessage().ToString();
 
         }
-        public static String UpdateFactor_trade_data(string tableName, Factor_trade_data factor_Trade_Data)
+        public static String UpdateFactory_trade_data(string tableName, Factory_trade_data factory_Trade_Data)
         {
             try
             {
                 using (var statement = connection.Prepare("UPDATE " + tableName + " SET ftprice = ?, ftnum = ? WHERE ftid = ?"))
                 {
-                    statement.Bind(1, factor_Trade_Data.ftprice);
-                    statement.Bind(2, factor_Trade_Data.ftnum);
-                    statement.Bind(3, factor_Trade_Data.ftid);
+                    statement.Bind(1, factory_Trade_Data.ftprice);
+                    statement.Bind(2, factory_Trade_Data.ftnum);
+                    statement.Bind(3, factory_Trade_Data.ftid);
                     statement.Step();
                 }
             }

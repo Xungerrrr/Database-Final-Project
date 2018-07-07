@@ -91,7 +91,7 @@ namespace DataBase.Pages
         {
             Car_info.Visibility = Visibility.Collapsed;
             Custom_info.Visibility = Visibility.Collapsed;
-            Garbage_info.Visibility = Visibility.Collapsed;
+            Garage_info.Visibility = Visibility.Collapsed;
             in_info.Visibility = Visibility.Collapsed;
             out_info.Visibility = Visibility.Collapsed;
         }
@@ -104,7 +104,7 @@ namespace DataBase.Pages
                 {
                     Car_info.Visibility = Visibility.Visible;
                     ObservableCollection<Car> cars = new ObservableCollection<Car>();
-                    ObservableCollection<Factor> factors = new ObservableCollection<Factor>();
+                    ObservableCollection<Factory> factorys = new ObservableCollection<Factory>();
                     SqlHelper.GetAllCar(cars, "car", id2);
 
                     if (id2.Equals(""))
@@ -118,10 +118,10 @@ namespace DataBase.Pages
                     }
 
 
-                    SqlHelper.GetAllFactor(factors, "factor", id);
-                    fid.Text = factors[0].fid;
-                    fname.Text = factors[0].fname;
-                    faddress.Text = factors[0].faddress;
+                    SqlHelper.GetAllFactory(factorys, "factory", id);
+                    fid.Text = factorys[0].fid;
+                    fname.Text = factorys[0].fname;
+                    faddress.Text = factorys[0].faddress;
                     cid.Text = cars[0].cid;
                     cbrand.Text = cars[0].cbrand;
                     cprice.Text = (cars[0].cprice).ToString();
@@ -138,12 +138,12 @@ namespace DataBase.Pages
                 }
                 else
                 {
-                    Garbage_info.Visibility = Visibility.Visible;
-                    ObservableCollection<Garbage> garbages = new ObservableCollection<Garbage>();
-                    SqlHelper.GetAllGarbage(garbages, "garbage", id);
-                    qid.Text = garbages[0].gid;
-                    ctnum.Text = (garbages[0].ctnum).ToString();
-                    cid2.Text = garbages[0].cid;
+                    Garage_info.Visibility = Visibility.Visible;
+                    ObservableCollection<Garage> garages = new ObservableCollection<Garage>();
+                    SqlHelper.GetAllGarage(garages, "garage", id);
+                    qid.Text = garages[0].gid;
+                    ctnum.Text = (garages[0].ctnum).ToString();
+                    cid2.Text = garages[0].cid;
                 }
             }
             else
@@ -151,12 +151,12 @@ namespace DataBase.Pages
                 if (smallIndex == 0)
                 {
                     in_info.Visibility = Visibility.Visible;
-                    ObservableCollection<Factor_trade_data> factor_Trade_Datas = new ObservableCollection<Factor_trade_data>();
-                    ftid.Text = factor_Trade_Datas[0].ftid;
-                    ftprice.Text = (factor_Trade_Datas[0].ftprice).ToString();
-                    ftnum.Text = (factor_Trade_Datas[0].ftnum).ToString();
-                    fid2.Text = (factor_Trade_Datas[0].fid);
-                    cid3.Text = (factor_Trade_Datas[0].cid);
+                    ObservableCollection<Factory_trade_data> factory_Trade_Datas = new ObservableCollection<Factory_trade_data>();
+                    ftid.Text = factory_Trade_Datas[0].ftid;
+                    ftprice.Text = (factory_Trade_Datas[0].ftprice).ToString();
+                    ftnum.Text = (factory_Trade_Datas[0].ftnum).ToString();
+                    fid2.Text = (factory_Trade_Datas[0].fid);
+                    cid3.Text = (factory_Trade_Datas[0].cid);
                 }
                 else
                 {
@@ -225,12 +225,12 @@ namespace DataBase.Pages
                     car.cprice = String2int(cprice.Text);
                     car.fid = fid.Text;
 
-                    Factor factor = new Factor();
-                    factor.fid = fid.Text;
-                    factor.faddress = faddress.Text;
-                    factor.fname = fname.Text;
+                    Factory factory = new Factory();
+                    factory.fid = fid.Text;
+                    factory.faddress = faddress.Text;
+                    factory.fname = fname.Text;
 
-                    SqlHelper.UpdateFactor("factor", factor);
+                    SqlHelper.UpdateFactory("factory", factory);
                     SqlHelper.UpdateCar("car", car);
                     var dialog = new ContentDialog()
                     {
@@ -259,11 +259,11 @@ namespace DataBase.Pages
                 {
                     ObservableCollection<Car> cars = new ObservableCollection<Car>();
                     SqlHelper.GetAllCar(cars, "car");
-                    Garbage garbage = new Garbage();
-                    garbage.gid = qid.Text;
-                    garbage.ctnum = String2int(ctnum.Text);
-                    garbage.cid = cid2.Text;
-                    SqlHelper.UpdateGarbage("garbage",garbage);
+                    Garage garage = new Garage();
+                    garage.gid = qid.Text;
+                    garage.ctnum = String2int(ctnum.Text);
+                    garage.cid = cid2.Text;
+                    SqlHelper.UpdateGarage("garage",garage);
                     var dialog = new ContentDialog()
                     {
                         Content = "更新成功",
@@ -279,10 +279,10 @@ namespace DataBase.Pages
                 {
                     ObservableCollection<Car> cars = new ObservableCollection<Car>();
                     SqlHelper.GetAllCar(cars, "car");
-                    ObservableCollection<Factor> factors = new ObservableCollection<Factor>();
-                    SqlHelper.GetAllFactor(factors, "factor");
-                    Factor_trade_data factor_Trade_Data = new Factor_trade_data { ftid = ftid.Text, ftprice = String2int(ftprice.Text), cid = cid3.Text, fid = fid2.Text, ftnum = String2int(ftnum.Text) };
-                    SqlHelper.UpdateFactor_trade_data( "Factor_trade_data", factor_Trade_Data);
+                    ObservableCollection<Factory> factorys = new ObservableCollection<Factory>();
+                    SqlHelper.GetAllFactory(factorys, "factory");
+                    Factory_trade_data factory_Trade_Data = new Factory_trade_data { ftid = ftid.Text, ftprice = String2int(ftprice.Text), cid = cid3.Text, fid = fid2.Text, ftnum = String2int(ftnum.Text) };
+                    SqlHelper.UpdateFactory_trade_data( "Factory_trade_data", factory_Trade_Data);
                     var dialog = new ContentDialog()
                     {
                         Content = "更新成功",

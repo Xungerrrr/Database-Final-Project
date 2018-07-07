@@ -55,7 +55,7 @@ namespace DataBase.Pages
         {
             Car_info.Visibility = Visibility.Collapsed;
             Custom_info.Visibility = Visibility.Collapsed;
-            Garbage_info.Visibility = Visibility.Collapsed;
+            Garage_info.Visibility = Visibility.Collapsed;
             in_info.Visibility = Visibility.Collapsed;
             out_info.Visibility = Visibility.Collapsed;
         }
@@ -74,7 +74,7 @@ namespace DataBase.Pages
                 }
                 else
                 {
-                    Garbage_info.Visibility = Visibility.Visible;
+                    Garage_info.Visibility = Visibility.Visible;
                 }
             }
             else
@@ -173,7 +173,7 @@ namespace DataBase.Pages
                 cid.Text == "" || cbrand.Text == "" || cprice.Text == "")) ||
                 (Custom_info.Visibility == Visibility.Visible && 
                 (cuid.Text == "" || cuname.Text == "" || cuaddress.Text == "" )) ||
-                (Garbage_info.Visibility == Visibility.Visible &&
+                (Garage_info.Visibility == Visibility.Visible &&
                 (qid.Text == "" || ctnum.Text == "" || cid2.Text == "" )) ||
                 (in_info.Visibility == Visibility.Visible && 
                 (ftid.Text == "" || ftprice.Text == "" || ftnum.Text == "" ||
@@ -208,13 +208,13 @@ namespace DataBase.Pages
                     }
                     car.cprice = x;
                     car.fid = fid.Text;
-                    Factor factor = new Factor();
-                    factor.fid = fid.Text;
-                    factor.faddress = faddress.Text;
-                    factor.fname = fname.Text;
+                    Factory factory = new Factory();
+                    factory.fid = fid.Text;
+                    factory.faddress = faddress.Text;
+                    factory.fname = fname.Text;
 
                     String feedback = "";
-                    SqlHelper.AddFactor(factor, "factor");
+                    SqlHelper.AddFactory(factory, "factory");
                     String message2 = SqlHelper.AddCar(car, "car");
 
                     if (message2 != "not an error")

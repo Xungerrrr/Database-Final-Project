@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataBase.Model
 {
-    class Factor_trade_data
+    class Factory_trade_data
     {
         public string ftid { get; set; }
         public int ftprice { get; set; }

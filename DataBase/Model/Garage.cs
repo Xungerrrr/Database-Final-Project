@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataBase.Model
 {
-    class Garbage
+    class Garage
     {
         public string gid { get; set; }
         public int ctnum { get; set; }

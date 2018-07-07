@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataBase.Model
 {
-    class Factor
+    class Factory
     {
         public string fid { get; set;}
         public string fname { get; set;}

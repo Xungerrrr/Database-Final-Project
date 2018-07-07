@@ -80,7 +80,7 @@
 
 
                 
-                <Grid Name="Garbage_info" Margin="20, 10, 0, 10" Width="400" >
+                <Grid Name="Garage_info" Margin="20, 10, 0, 10" Width="400" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="2*"/>

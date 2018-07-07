@@ -26,19 +26,19 @@ namespace DataBase.Pages
     /// </summary>
     public sealed partial class info_garage : Page
     {
-        private ObservableCollection<Factor> factors = new ObservableCollection<Factor>();
+        private ObservableCollection<Factory> factorys = new ObservableCollection<Factory>();
         private ObservableCollection<Car> cars = new ObservableCollection<Car>();
-        private ObservableCollection<Garbage> garbages = new ObservableCollection<Garbage>();
+        private ObservableCollection<Garage> garages = new ObservableCollection<Garage>();
         private ObservableCollection<Base> bases = new ObservableCollection<Base>();
-        private ObservableCollection<Factor_trade_data> factor_Trade_Datas = new ObservableCollection<Factor_trade_data>();
+        private ObservableCollection<Factory_trade_data> factory_Trade_Datas = new ObservableCollection<Factory_trade_data>();
         public info_garage()
         {
             this.InitializeComponent();
-            SqlHelper.GetAllFactor(factors, "factor");
+            SqlHelper.GetAllFactory(factorys, "factory");
             SqlHelper.GetAllCar(cars, "car");
-            SqlHelper.GetAllGarbage(garbages, "garbage");
-            SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
-            foreach (Garbage temp_g in garbages)
+            SqlHelper.GetAllGarage(garages, "garage");
+            SqlHelper.GetAllFactory_trade_data(factory_Trade_Datas, "factory_trade_data");
+            foreach (Garage temp_g in garages)
             {
                 Base new_one = new Base();
                 new_one.garage_id = temp_g.gid;
@@ -52,7 +52,7 @@ namespace DataBase.Pages
                         break;
                     }
                 }
-                foreach(Factor temp_f in factors)
+                foreach(Factory temp_f in factorys)
                 {
                     if(new_one.fid == temp_f.fid)
                     {
@@ -61,7 +61,7 @@ namespace DataBase.Pages
                         break;
                     }
                 }
-                foreach(Factor_trade_data temp_ft in factor_Trade_Datas)
+                foreach(Factory_trade_data temp_ft in factory_Trade_Datas)
                 {
                     if((new_one.fid == temp_ft.fid) && (temp_g.cid == temp_ft.cid))
                     {

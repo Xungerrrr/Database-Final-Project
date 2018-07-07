@@ -102,9 +102,9 @@
     <Compile Include="Model\Car.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Customer_trade_data.cs" />
-    <Compile Include="Model\Factor.cs" />
-    <Compile Include="Model\Factor_trade_data.cs" />
-    <Compile Include="Model\Garbage.cs" />
+    <Compile Include="Model\Factory.cs" />
+    <Compile Include="Model\Factory_trade_data.cs" />
+    <Compile Include="Model\Garage.cs" />
     <Compile Include="Model\MenuItem.cs" />
     <Compile Include="Pages\Base_Information.xaml.cs">
       <DependentUpon>Base_Information.xaml</DependentUpon>

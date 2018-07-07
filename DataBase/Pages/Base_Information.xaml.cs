@@ -28,23 +28,23 @@ namespace DataBase.Pages
         public int num = 0;
         private ObservableCollection<Base> bases = new ObservableCollection<Base>();
         public int nowIndex;
-        private ObservableCollection<Factor> factors = new ObservableCollection<Factor>();
+        private ObservableCollection<Factory> factorys = new ObservableCollection<Factory>();
         private ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
         private ObservableCollection<Car> cars = new ObservableCollection<Car>();
         private ObservableCollection<Customer_trade_data> customer_Trade_Datas = new ObservableCollection<Customer_trade_data>();
-        private ObservableCollection<Factor_trade_data> factor_Trade_Datas = new ObservableCollection<Factor_trade_data>();
-        private ObservableCollection<Garbage> garbages = new ObservableCollection<Garbage>();
+        private ObservableCollection<Factory_trade_data> factory_Trade_Datas = new ObservableCollection<Factory_trade_data>();
+        private ObservableCollection<Garage> garages = new ObservableCollection<Garage>();
 
 
         public Base_Information()
         {
             this.InitializeComponent();
-            SqlHelper.GetAllFactor(factors, "factor");
+            SqlHelper.GetAllFactory(factorys, "factory");
             SqlHelper.GetAllCustomer(customers, "customer");
             SqlHelper.GetAllCar(cars, "car");
             SqlHelper.GetAllCustomer_trade_data(customer_Trade_Datas, "Customer_trade_data");
-            SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
-            SqlHelper.GetAllGarbage(garbages, "garbage");
+            SqlHelper.GetAllFactory_trade_data(factory_Trade_Datas, "factory_trade_data");
+            SqlHelper.GetAllGarage(garages, "garage");
 
             bases.Add(new Base { icon = Symbol.Add, type = "产商", id = 0 });
             bases.Add(new Base { icon = Symbol.Add, type = "用户", id = 1 });
@@ -58,8 +58,8 @@ namespace DataBase.Pages
             {
                 case 0:
                     {
-                        SqlHelper.DeleteFactor("Factor", (Factor)s.DataContext);
-                        SqlHelper.GetAllFactor(factors, "Factor");
+                        SqlHelper.DeleteFactory("Factory", (Factory)s.DataContext);
+                        SqlHelper.GetAllFactory(factorys, "Factory");
                         break;
                     }
                 case 1:
@@ -82,14 +82,14 @@ namespace DataBase.Pages
                     }
                 case 4:
                     {
-                        SqlHelper.DeleteFactor_trade_data("factor_trade_data", (Factor_trade_data)s.DataContext);
-                        SqlHelper.GetAllFactor_trade_data(factor_Trade_Datas, "factor_trade_data");
+                        SqlHelper.DeleteFactory_trade_data("factory_trade_data", (Factory_trade_data)s.DataContext);
+                        SqlHelper.GetAllFactory_trade_data(factory_Trade_Datas, "factory_trade_data");
                         break;
                     }
                 case 5:
                     {
-                        SqlHelper.DeleteGarbage("garbage", (Garbage)s.DataContext);
-                        SqlHelper.GetAllGarbage(garbages, "garbage");
+                        SqlHelper.DeleteGarage("garage", (Garage)s.DataContext);
+                        SqlHelper.GetAllGarage(garages, "garage");
                         break;
                     }
             }
@@ -104,7 +104,7 @@ namespace DataBase.Pages
             {
                 case 0:
                     {
-                        info_update.id = ((Factor)s.DataContext).fid;
+                        info_update.id = ((Factory)s.DataContext).fid;
                         info_update.id2 = "";
                         break;
                     }
@@ -126,12 +126,12 @@ namespace DataBase.Pages
                     }
                 case 4:
                     {
-                        info_update.id = ((Factor_trade_data)s.DataContext).ftid;
+                        info_update.id = ((Factory_trade_data)s.DataContext).ftid;
                         break;
                     }
                 case 5:
                     {
-                        info_update.id = ((Garbage)s.DataContext).gid;
+                        info_update.id = ((Garage)s.DataContext).gid;
                         break;
                     }
             }
@@ -140,7 +140,7 @@ namespace DataBase.Pages
             this.Frame.Navigate(typeof(info_update));
         }
 
-        private void FactorsList_ItemClick(object sender, ItemClickEventArgs e)
+        private void FactorysList_ItemClick(object sender, ItemClickEventArgs e)
         {
 
         }
@@ -156,107 +156,107 @@ namespace DataBase.Pages
             {
                 case 0:
                 {
-                        FactorsList.Visibility = Visibility.Visible;
+                        FactorysList.Visibility = Visibility.Visible;
                         CustomeList.Visibility = Visibility.Collapsed;
                         Carlist.Visibility = Visibility.Collapsed;
                         Customer_trade_datalist.Visibility = Visibility.Collapsed;
-                        Factor_trade_datalist.Visibility = Visibility.Collapsed;
-                        Garbagelist.Visibility = Visibility.Collapsed;
+                        Factory_trade_datalist.Visibility = Visibility.Collapsed;
+                        Garagelist.Visibility = Visibility.Collapsed;
 
 
-                        FactorsGrid.Visibility = Visibility.Visible;
+                        FactorysGrid.Visibility = Visibility.Visible;
                         CustomeGrid.Visibility = Visibility.Collapsed;
                         CarGrid.Visibility = Visibility.Collapsed;
                         Customer_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        Factor_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        GarbageGrid.Visibility = Visibility.Collapsed;
+                        Factory_trade_dataGrid.Visibility = Visibility.Collapsed;
+                        GarageGrid.Visibility = Visibility.Collapsed;
                         break;
                 }
                 case 1:
                 {
-                        FactorsList.Visibility = Visibility.Collapsed;
+                        FactorysList.Visibility = Visibility.Collapsed;
                         CustomeList.Visibility = Visibility.Visible;
                         Carlist.Visibility = Visibility.Collapsed;
                         Customer_trade_datalist.Visibility = Visibility.Collapsed;
-                        Factor_trade_datalist.Visibility = Visibility.Collapsed;
-                        Garbagelist.Visibility = Visibility.Collapsed;
+                        Factory_trade_datalist.Visibility = Visibility.Collapsed;
+                        Garagelist.Visibility = Visibility.Collapsed;
 
 
-                        FactorsGrid.Visibility = Visibility.Collapsed;
+                        FactorysGrid.Visibility = Visibility.Collapsed;
                         CustomeGrid.Visibility = Visibility.Visible;
                         CarGrid.Visibility = Visibility.Collapsed;
                         Customer_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        Factor_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        GarbageGrid.Visibility = Visibility.Collapsed;
+                        Factory_trade_dataGrid.Visibility = Visibility.Collapsed;
+                        GarageGrid.Visibility = Visibility.Collapsed;
                         break;
                 }
                 case 2:
                 {
-                        FactorsList.Visibility = Visibility.Collapsed;
+                        FactorysList.Visibility = Visibility.Collapsed;
                         CustomeList.Visibility = Visibility.Collapsed;
                         Carlist.Visibility = Visibility.Visible;
                         Customer_trade_datalist.Visibility = Visibility.Collapsed;
-                        Factor_trade_datalist.Visibility = Visibility.Collapsed;
-                        Garbagelist.Visibility = Visibility.Collapsed;
+                        Factory_trade_datalist.Visibility = Visibility.Collapsed;
+                        Garagelist.Visibility = Visibility.Collapsed;
 
-                        FactorsGrid.Visibility = Visibility.Collapsed;
+                        FactorysGrid.Visibility = Visibility.Collapsed;
                         CustomeGrid.Visibility = Visibility.Collapsed;
                         CarGrid.Visibility = Visibility.Visible;
                         Customer_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        Factor_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        GarbageGrid.Visibility = Visibility.Collapsed;
+                        Factory_trade_dataGrid.Visibility = Visibility.Collapsed;
+                        GarageGrid.Visibility = Visibility.Collapsed;
                         break;
                 }
                 case 3:
                 {
-                        FactorsList.Visibility = Visibility.Collapsed;
+                        FactorysList.Visibility = Visibility.Collapsed;
                         CustomeList.Visibility = Visibility.Collapsed;
                         Carlist.Visibility = Visibility.Collapsed;
                         Customer_trade_datalist.Visibility = Visibility.Visible;
-                        Factor_trade_datalist.Visibility = Visibility.Collapsed;
-                        Garbagelist.Visibility = Visibility.Collapsed;
+                        Factory_trade_datalist.Visibility = Visibility.Collapsed;
+                        Garagelist.Visibility = Visibility.Collapsed;
 
-                        FactorsGrid.Visibility = Visibility.Collapsed;
+                        FactorysGrid.Visibility = Visibility.Collapsed;
                         CustomeGrid.Visibility = Visibility.Collapsed;
                         CarGrid.Visibility = Visibility.Collapsed;
                         Customer_trade_dataGrid.Visibility = Visibility.Visible;
-                        Factor_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        GarbageGrid.Visibility = Visibility.Collapsed;
+                        Factory_trade_dataGrid.Visibility = Visibility.Collapsed;
+                        GarageGrid.Visibility = Visibility.Collapsed;
                         break;
                 }
                 case 4:
                 {
-                        FactorsList.Visibility = Visibility.Collapsed;
+                        FactorysList.Visibility = Visibility.Collapsed;
                         CustomeList.Visibility = Visibility.Collapsed;
                         Carlist.Visibility = Visibility.Collapsed;
                         Customer_trade_datalist.Visibility = Visibility.Collapsed;
-                        Factor_trade_datalist.Visibility = Visibility.Visible;
-                        Garbagelist.Visibility = Visibility.Collapsed;
+                        Factory_trade_datalist.Visibility = Visibility.Visible;
+                        Garagelist.Visibility = Visibility.Collapsed;
 
-                        FactorsGrid.Visibility = Visibility.Collapsed;
+                        FactorysGrid.Visibility = Visibility.Collapsed;
                         CustomeGrid.Visibility = Visibility.Collapsed;
                         CarGrid.Visibility = Visibility.Collapsed;
                         Customer_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        Factor_trade_dataGrid.Visibility = Visibility.Visible;
-                        GarbageGrid.Visibility = Visibility.Collapsed;
+                        Factory_trade_dataGrid.Visibility = Visibility.Visible;
+                        GarageGrid.Visibility = Visibility.Collapsed;
                         break;
                 }
                 case 5:
                 {
-                        FactorsList.Visibility = Visibility.Collapsed;
+                        FactorysList.Visibility = Visibility.Collapsed;
                         CustomeList.Visibility = Visibility.Collapsed;
                         Carlist.Visibility = Visibility.Collapsed;
                         Customer_trade_datalist.Visibility = Visibility.Collapsed;
-                        Factor_trade_datalist.Visibility = Visibility.Collapsed;
-                        Garbagelist.Visibility = Visibility.Visible;
+                        Factory_trade_datalist.Visibility = Visibility.Collapsed;
+                        Garagelist.Visibility = Visibility.Visible;
 
 
-                        FactorsGrid.Visibility = Visibility.Collapsed;
+                        FactorysGrid.Visibility = Visibility.Collapsed;
                         CustomeGrid.Visibility = Visibility.Collapsed;
                         CarGrid.Visibility = Visibility.Collapsed;
                         Customer_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        Factor_trade_dataGrid.Visibility = Visibility.Collapsed;
-                        GarbageGrid.Visibility = Visibility.Visible;
+                        Factory_trade_dataGrid.Visibility = Visibility.Collapsed;
+                        GarageGrid.Visibility = Visibility.Visible;
                         break;
                 }
             }
