@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel MaxWidth="1200" HorizontalAlignment="Center">
             <GridView Name="BigTags" HorizontalAlignment="Center" ItemsSource="{x:Bind bases}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="BigTags_ItemClick" Margin="10, 10, 10, 0" BorderBrush="Gray" BorderThickness="0, 0, 0, 1">
                 <GridView.ItemTemplate>
