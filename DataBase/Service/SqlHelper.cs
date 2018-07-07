@@ -16,12 +16,13 @@ namespace DataBase.Service
 
         public static void PrepareConnection()
         {
-            connection = new SQLiteConnection("car.db");
+            connection = new SQLiteConnection("car.db"); //创建数据库
 
             //激活Sqlite外码约束
             using (var statement = connection.Prepare(@"PRAGMA foreign_keys = ON"))
                 statement.Step();
 
+            //以下为创建各表的SQL命令
             string FactorySql = @"CREATE TABLE IF NOT EXISTS
                Factory (fid            VARCHAR(10) PRIMARY KEY NOT NULL,
                         fname           VARCHAR(10),
@@ -66,13 +67,12 @@ namespace DataBase.Service
             );";
 
             string GarageSql = @"CREATE TABLE IF NOT EXISTS
-                Garage( 
-                        gid             VARCHAR(10) PRIMARY KEY NOT NULL,                     
+              Garage(   gid             VARCHAR(10) PRIMARY KEY NOT NULL,                     
                         ctnum           INTEGER,
-                        cid             VARCHAR(10), 
+                        cid             VARCHAR(10) NOT NULL, 
                         FOREIGN KEY(cid) REFERENCES Car(cid) ON UPDATE CASCADE 
             );";
-
+            //执行上面的SQL语句
             using (var statement = connection.Prepare(FactorySql))
                 statement.Step();
             using (var statement = connection.Prepare(CarSql))
