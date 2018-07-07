@@ -26,7 +26,7 @@ namespace DataBase.Service
             string FactorSql = @"CREATE TABLE IF NOT EXISTS
                 Factor( fid             VARCHAR(10) PRIMARY KEY NOT NULL,
                         fname           VARCHAR(10),
-                        faddress        VARCHAR(5)
+                        faddress        VARCHAR(100)
             );";
 
             string CarSql = @"CREATE TABLE IF NOT EXISTS
@@ -40,7 +40,7 @@ namespace DataBase.Service
             string CustomSql = @"CREATE TABLE IF NOT EXISTS
                 Customer( cuid          VARCHAR(10) PRIMARY KEY NOT NULL,
                         cuname          VARCHAR(10),
-                        cuaddress       VARCHAR(5)
+                        cuaddress       VARCHAR(100)
             );";
 
             string Factor_trade_dataSql = @"CREATE TABLE IF NOT EXISTS
