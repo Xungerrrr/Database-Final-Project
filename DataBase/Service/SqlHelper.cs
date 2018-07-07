@@ -16,29 +16,29 @@ namespace DataBase.Service
 
         public static void PrepareConnection()
         {
-            connection = new SQLiteConnection("car.db");
+            connection = new SQLiteConnection("car.db"); //创建数据库
 
+            //激活Sqlite外码约束
             using (var statement = connection.Prepare(@"PRAGMA foreign_keys = ON"))
-            {
-                SQLiteResult result = statement.Step();
-            }
+                statement.Step();
 
+            //以下为创建各表的SQL命令
             string FactorySql = @"CREATE TABLE IF NOT EXISTS
-                Factory( fid             VARCHAR(10) PRIMARY KEY NOT NULL,
+               Factory (fid            VARCHAR(10) PRIMARY KEY NOT NULL,
                         fname           VARCHAR(10),
                         faddress        VARCHAR(100)
             );";
 
             string CarSql = @"CREATE TABLE IF NOT EXISTS
-                Car(    cid             VARCHAR(10) PRIMARY KEY NOT NULL,
+                   Car (cid             VARCHAR(10) PRIMARY KEY NOT NULL,
                         cbrand          VARCHAR(10),
                         cprice          INTEGER,
-                        fid             VARCHAR(10),
-                        FOREIGN KEY(fid) REFERENCES Factory(fid)
+                        fid             VARCHAR(10) NOT NULL,
+                        FOREIGN KEY(fid) REFERENCES Factory(fid) ON UPDATE CASCADE
             );";
 
             string CustomSql = @"CREATE TABLE IF NOT EXISTS
-                Customer( cuid          VARCHAR(10) PRIMARY KEY NOT NULL,
+              Customer (cuid            VARCHAR(10) PRIMARY KEY NOT NULL,
                         cuname          VARCHAR(10),
                         cuaddress       VARCHAR(100)
             );";
@@ -48,8 +48,10 @@ namespace DataBase.Service
                         ftid            VARCHAR(10) PRIMARY KEY NOT NULL,
                         ftprice         INTEGER,
                         ftnum           INTEGER,
-                        fid             VARCHAR(10) REFERENCES Factory(fid) ON UPDATE CASCADE,
-                        cid             VARCHAR(10) REFERENCES Car(cid) ON UPDATE CASCADE               
+                        fid             VARCHAR(10) NOT NULL,
+                        cid             VARCHAR(10) NOT NULL,
+                        FOREIGN KEY(fid) REFERENCES Factory(fid) ON UPDATE CASCADE,
+                        FOREIGN KEY(cid) REFERENCES Car(cid) ON UPDATE CASCADE
             );";
 
             string Customer_trade_dataSql = @"CREATE TABLE IF NOT EXISTS
@@ -57,19 +59,20 @@ namespace DataBase.Service
                         ctid            VARCHAR(10) PRIMARY KEY NOT NULL,
                         ctprice         INTEGER,
                         ctnum           INTEGER,
-                        cuid            VARCHAR(10) REFERENCES Customer(cuid) ON UPDATE CASCADE,
-                        cid             VARCHAR(10) REFERENCES Car(cid) ON UPDATE CASCADE,
-                        cprofit         INTEGER
+                        cprofit         INTEGER,
+                        cuid            VARCHAR(10) NOT NULL,
+                        cid             VARCHAR(10) NOT NULL,
+                        FOREIGN KEY(cuid) REFERENCES Customer(cuid) ON UPDATE CASCADE,
+                        FOREIGN KEY(cid) REFERENCES Car(cid) ON UPDATE CASCADE
             );";
 
             string GarageSql = @"CREATE TABLE IF NOT EXISTS
-                Garage( 
-                        gid             VARCHAR(10) PRIMARY KEY NOT NULL,                     
+              Garage(   gid             VARCHAR(10) PRIMARY KEY NOT NULL,                     
                         ctnum           INTEGER,
-                        cid             VARCHAR(10), 
+                        cid             VARCHAR(10) NOT NULL, 
                         FOREIGN KEY(cid) REFERENCES Car(cid) ON UPDATE CASCADE 
             );";
-
+            //执行上面的SQL语句
             using (var statement = connection.Prepare(FactorySql))
                 statement.Step();
             using (var statement = connection.Prepare(CarSql))
