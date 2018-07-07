@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -71,6 +72,10 @@ namespace DataBase
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
             }
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+
+            //扩展亚克力
+            extendAcrylicIntoTitleBar();
         }
 
         /// <summary>
@@ -95,6 +100,14 @@ namespace DataBase
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
+        }
+
+        ///将亚克力扩展到标题栏 
+        private void extendAcrylicIntoTitleBar() {
+            Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Windows.UI.Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Windows.UI.Colors.Transparent;
         }
     }
 }

@@ -8,7 +8,7 @@
     xmlns:md="using:DataBase.Model"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <ScrollViewer>
             <StackPanel MaxWidth="1200" HorizontalAlignment="Center">
                 
@@ -131,9 +131,9 @@
                         <TextBox x:Name="cid4"  IsReadOnly="True" Background="Red"  Height="20" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center"></TextBox>
                     </Grid>
 
-                    <GridView HorizontalAlignment="Center" Margin="0,100,0,0">
-                        <Button Content="取消" Margin="0,0,29,0" Click="Button_Click"></Button>
-                        <Button Content="更新" Margin="29,0,0,0" Click="Button_Click_1"></Button>
+                    <GridView HorizontalAlignment="Center" Margin="0 50 0 0">
+                        <AppBarButton Icon="Cancel" LabelPosition="Collapsed" Click="Button_Click"/>
+                        <AppBarButton Icon="Accept" LabelPosition="Collapsed" Click="Button_Click_1"/>
                     </GridView>
                 </StackPanel>
             </StackPanel>

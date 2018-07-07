@@ -171,6 +171,7 @@ namespace DataBase.Pages
                     {
                         SqlHelper.DeleteCustomer_trade_data("Customer_trade_data", (Customer_trade_data)s.DataContext);
                         SqlHelper.GetAllCustomer_trade_data(customer_Trade_Datas, "Customer_trade_data");
+                        Total_profit.Text = "总收益：" + SqlHelper.GetTotal_profit("Customer_trade_data").ToString();
                         break;
                     }
                 case 0:

@@ -8,7 +8,7 @@
     xmlns:md="using:DataBase.Model"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <ScrollViewer>
             <StackPanel MaxWidth="1200" HorizontalAlignment="Center">
                 <GridView Name="BigTags" HorizontalAlignment="Center" ItemsSource="{x:Bind bases}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="BigTags_ItemClick" Margin="10, 10, 10, 0" BorderBrush="Gray" BorderThickness="0, 0, 0, 1">
@@ -77,11 +77,11 @@
                                                 <ColumnDefinition Width="50"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Text="{x:Bind ctid}" Grid.Column="0"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{x:Bind ctprice}" Grid.Column="1" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{x:Bind ctnum}" Grid.Column="2" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{x:Bind cid}" Grid.Column="3" Foreground="#999999" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{x:Bind cuid}" Grid.Column="4" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{x:Bind cprofit}" Grid.Column="5" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{x:Bind ctprice}" Grid.Column="1" Foreground="#333333"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{x:Bind ctnum}" Grid.Column="2" Foreground="#333333"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{x:Bind cid}" Grid.Column="3" Foreground="#333333" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{x:Bind cuid}" Grid.Column="4" Foreground="#333333"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{x:Bind cprofit}" Grid.Column="5" Foreground="#333333"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
                                             <AppBarButton Grid.Column="6" Icon="Delete" Click="MenuFlyoutItem_Click" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
                                             </AppBarButton>
                                         </Grid>
@@ -128,10 +128,10 @@
                                             <ColumnDefinition Width="50"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="{x:Bind ftid}" Grid.Column="0"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind ftprice}" Grid.Column="1" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind ftnum}" Grid.Column="2" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind cid}" Grid.Column="3" Foreground="#999999" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{x:Bind fid}" Grid.Column="4" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind ftprice}" Grid.Column="1" Foreground="#333333"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind ftnum}" Grid.Column="2" Foreground="#333333"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind cid}" Grid.Column="3" Foreground="#333333" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{x:Bind fid}" Grid.Column="4" Foreground="#333333"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
                                         <AppBarButton Grid.Column="5" Icon="Delete" Click="MenuFlyoutItem_Click" IsCompact="True" VerticalAlignment="Center" Width="40" Margin="10, 0, 0, 0">
                                         </AppBarButton>
                                     </Grid>
@@ -212,9 +212,9 @@
                         <TextBox x:Name="cid4" Height="20" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center"></TextBox>
                     </Grid>
 
-                    <GridView HorizontalAlignment="Center" Name="menu" Margin="0,100,0,0">
-                        <Button Content="取消" Margin="0,0,29,0" Click="Button_Click"></Button>
-                        <Button Content="创建" Margin="29,0,0,0" Click="Button_Click_1"></Button>
+                    <GridView HorizontalAlignment="Center" Name="menu" Margin="0,50,0,0">
+                        <AppBarButton Icon="Cancel" LabelPosition="Collapsed" Click="Button_Click"/>
+                        <AppBarButton Icon="Accept" LabelPosition="Collapsed" Click="Button_Click_1"/>
                     </GridView>
                 </StackPanel>
             </StackPanel>

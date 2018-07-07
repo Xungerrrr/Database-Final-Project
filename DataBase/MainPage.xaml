@@ -19,17 +19,23 @@
     </Page.Resources>
     
     
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView x:Name="mainSplitView" OpenPaneLength="150" CompactPaneLength="45" PaneBackground="LightGray" DisplayMode="CompactOverlay">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="UniformToFill" ImageSource="Assets/background.jpg" AlignmentY="Center" AlignmentX="Center"/>
+        </Grid.Background>
+        <Grid Background="{ThemeResource MyAcrylicBrush}">
+            
+        </Grid>
+        <SplitView x:Name="mainSplitView" OpenPaneLength="200" CompactPaneLength="45" PaneBackground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}" DisplayMode="CompactOverlay">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal">
-                        <Button x:Name="hanburgButton" FontFamily="Segoe MDL2 Assets" Content="" FontSize="24" Click="hanburgButton_Click" />
-                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" FontSize="15" Text="汽车管理系统"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
+                        <Button x:Name="hanburgButton" FontFamily="Segoe MDL2 Assets" Content="" FontSize="24" Click="hanburgButton_Click" Height="44"/>
+                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" Text="汽车管理系统"/>
                     </StackPanel>
                     <ListView Grid.Row="1" x:Name="mainListView" ItemsSource="{Binding recommandMenu.menuItems}" ItemTemplate="{StaticResource MenuItemDataTemplate}" IsItemClickEnabled="True" ItemClick="mainListView_ItemClick"/>
                 </Grid>

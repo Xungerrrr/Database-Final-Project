@@ -8,7 +8,7 @@
     xmlns:md="using:DataBase.Model"
     mc:Ignorable="d">
 
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="20">
+    <StackPanel Padding="20">
         <Grid HorizontalAlignment="Center" Height="40">
         <TextBlock Text="Garage" FontSize="20" FontFamily="Algerian" FontStyle="Italic" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         </Grid>
@@ -16,12 +16,12 @@
         <Line Height="5" Stretch="Fill" Stroke="Black" StrokeThickness="0.3" X1="1" Margin="-20, 5, -20, 5"/>
         <Grid Margin="20, 10, 0, 10" Name="GarageGrid">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="入库编号" Grid.Column="0" VerticalAlignment="Center"/>
             <TextBlock Text="汽车数目" Grid.Column="1" VerticalAlignment="Center"/>
@@ -42,19 +42,19 @@
                     <UserControl>
                         <Grid Height="auto" Margin="10, 0, 0, 0">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="3*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{x:Bind garage_id}" Grid.Column="0"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                            <TextBlock Text="{x:Bind garage_tnum}" Grid.Column="1" Foreground="#666666"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
-                            <TextBlock Text="{x:Bind car_tprice}" Grid.Column="2" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
-                            <TextBlock Text="{x:Bind car_brand}" Grid.Column="3" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
-                            <TextBlock Text="{x:Bind factory_name}" Grid.Column="4" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
-                            <TextBlock Text="{x:Bind factory_address}" Grid.Column="5" Foreground="#666666"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind garage_tnum}" Grid.Column="1" Foreground="#333333"  TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind car_tprice}" Grid.Column="2" Foreground="#333333"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind car_brand}" Grid.Column="3" Foreground="#333333"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind factory_name}" Grid.Column="4" Foreground="#333333"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind factory_address}" Grid.Column="5" Foreground="#333333"  TextTrimming="CharacterEllipsis" Margin="0, 0, 5, 0" VerticalAlignment="Center"/>
                         </Grid>
                     </UserControl>
                 </DataTemplate>

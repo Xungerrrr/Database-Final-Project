@@ -4,5 +4,36 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:DataBase"
     RequestedTheme="Light">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Default">
+                    <AcrylicBrush x:Key="MyAcrylicBrush"
+                        BackgroundSource="Backdrop"
+                        TintColor="#FF000000"
+                        TintOpacity="0.2"
+                        FallbackColor="#FF000000"/>
+                </ResourceDictionary>
 
+                <ResourceDictionary x:Key="HighContrast">
+                    <SolidColorBrush x:Key="MyAcrylicBrush"
+                    Color="{ThemeResource SystemColorWindowColor}"/>
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Light">
+                    <AcrylicBrush x:Key="MyAcrylicBrush"
+                        BackgroundSource="Backdrop"
+                        TintColor="#FFFFFFFF"
+                        TintOpacity="0.3"
+                        FallbackColor="#FF000000"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+            <Style x:Key="header" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Margin" Value="50 50 50 0"/>
+                <Setter Property="HorizontalAlignment" Value="left"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

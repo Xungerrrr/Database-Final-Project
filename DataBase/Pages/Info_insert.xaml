@@ -8,7 +8,7 @@
     xmlns:md="using:DataBase.Model"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <ScrollViewer>
         <StackPanel MaxWidth="1200" HorizontalAlignment="Center">
             <GridView Name="BigTags" HorizontalAlignment="Center" ItemsSource="{x:Bind bases}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="BigTags_ItemClick" Margin="10, 10, 10, 0" BorderBrush="Gray" BorderThickness="0, 0, 0, 1">
@@ -148,9 +148,9 @@
                     <TextBox x:Name="cid4" Height="20" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center"></TextBox>
                 </Grid>
 
-                    <GridView HorizontalAlignment="Center" Margin="0,100,0,0">
-                        <Button Content="取消" Margin="0,0,29,0" Click="Button_Click"></Button>
-                        <Button Content="创建" Margin="29,0,0,0" Click="Button_Click_1"></Button>
+                    <GridView HorizontalAlignment="Center" Margin="0,50,0,0">
+                        <AppBarButton Icon="Cancel" LabelPosition="Collapsed" Click="Button_Click"/>
+                        <AppBarButton Icon="Accept" LabelPosition="Collapsed" Click="Button_Click_1"/>
                     </GridView>
                 </StackPanel>
         </StackPanel>
