@@ -37,8 +37,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="产商编号" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBlock Text="厂商名字" Grid.Column="1" VerticalAlignment="Center"/>
+                <TextBlock Text="厂商编号" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock Text="厂商名称" Grid.Column="1" VerticalAlignment="Center"/>
                 <TextBlock Text="厂商地址" Grid.Column="2" VerticalAlignment="Center"/>
                 <TextBlock Text="操作" Grid.Column="3" VerticalAlignment="Center"/>
                 <Line Grid.ColumnSpan="4" Grid.Row="1" Height="5" Stretch="Fill" Stroke="Black" StrokeThickness="0.3" X1="1" Margin="-20, 5, -20, 5"/>
@@ -90,8 +90,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="客户电话" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBlock Text="客户名字" Grid.Column="1" VerticalAlignment="Center"/>
-                <TextBlock Text="客户住址" Grid.Column="2" VerticalAlignment="Center"/>
+                <TextBlock Text="客户名称" Grid.Column="1" VerticalAlignment="Center"/>
+                <TextBlock Text="客户地址" Grid.Column="2" VerticalAlignment="Center"/>
                 <TextBlock Text="操作" Grid.Column="3" VerticalAlignment="Center"/>
                 <Line Grid.ColumnSpan="4" Grid.Row="1" Height="5" Stretch="Fill" Stroke="Black" StrokeThickness="0.3" X1="1" Margin="-20, 5, -20, 5"/>
             </Grid>

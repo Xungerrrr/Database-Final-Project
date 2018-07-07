@@ -46,9 +46,9 @@ namespace DataBase.Pages
             SqlHelper.GetAllFactory_trade_data(factory_Trade_Datas, "factory_trade_data");
             SqlHelper.GetAllGarage(garages, "garage");
 
-            bases.Add(new Base { icon = Symbol.Add, type = "产商", id = 0 });
-            bases.Add(new Base { icon = Symbol.Add, type = "用户", id = 1 });
-            bases.Add(new Base { icon = Symbol.Add, type = "汽车", id = 2 });
+            bases.Add(new Base { icon = Symbol.Add, type = "厂商", id = 0 });
+            bases.Add(new Base { icon = Symbol.Add, type = "客户", id = 1 });
+            bases.Add(new Base { icon = Symbol.Add, type = "车辆", id = 2 });
         }
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)

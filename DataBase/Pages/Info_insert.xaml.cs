@@ -41,8 +41,8 @@ namespace DataBase.Pages
             
             ObservableCollection<Base> temp = new ObservableCollection<Base>();
             ObservableCollection<Base> temp2 = new ObservableCollection<Base>();
-            temp.Add(new Base { icon = Symbol.Add, type = "汽车", id = 0 });
-            temp.Add(new Base { icon = Symbol.Add, type = "用户", id = 1 });
+            temp.Add(new Base { icon = Symbol.Add, type = "车辆", id = 0 });
+            temp.Add(new Base { icon = Symbol.Add, type = "客户", id = 1 });
             smallbases.Add(temp);
             SmallTags.ItemsSource = smallbases[nowIndex];
 

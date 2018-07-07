@@ -28,11 +28,11 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="入库编号" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBlock Text="汽车数目" Grid.Column="1" VerticalAlignment="Center"/>
-                <TextBlock Text="汽车价格" Grid.Column="2" VerticalAlignment="Center"/>
-                <TextBlock Text="汽车品牌" Grid.Column="3" VerticalAlignment="Center"/>
-                <TextBlock Text="产商名称" Grid.Column="4" VerticalAlignment="Center"/>
-                <TextBlock Text="产商地址" Grid.Column="5" VerticalAlignment="Center"/>
+                <TextBlock Text="车辆数目" Grid.Column="1" VerticalAlignment="Center"/>
+                <TextBlock Text="购入价格" Grid.Column="2" VerticalAlignment="Center"/>
+                <TextBlock Text="车辆品牌" Grid.Column="3" VerticalAlignment="Center"/>
+                <TextBlock Text="厂商名称" Grid.Column="4" VerticalAlignment="Center"/>
+                <TextBlock Text="厂商地址" Grid.Column="5" VerticalAlignment="Center"/>
                 <Line Grid.ColumnSpan="6" Grid.Row="1"  Height="5" Stretch="Fill" Stroke="Black" StrokeThickness="0.5" X1="1" Margin="-20, 5, -20, 5"/>
             </Grid>
 

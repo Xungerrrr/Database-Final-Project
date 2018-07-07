@@ -45,17 +45,17 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="车商编号" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
+                    <TextBlock Text="厂商编号" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
                     <TextBox x:Name="fid" Height="20" Grid.Column="1"  Grid.Row="0" VerticalAlignment="Center"></TextBox>
-                    <TextBlock Text="车商" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
+                    <TextBlock Text="厂商" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
                     <TextBox x:Name="fname" Height="20" Grid.Column="1"  Grid.Row="1" VerticalAlignment="Center"></TextBox>
-                    <TextBlock Text="车商地址" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center"/>
+                    <TextBlock Text="厂商地址" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center"/>
                     <TextBox x:Name="faddress" Height="20" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Center"></TextBox>
-                    <TextBlock Text="车号" Grid.Column="0"  Grid.Row="3" VerticalAlignment="Center"/>
+                    <TextBlock Text="车辆编号" Grid.Column="0"  Grid.Row="3" VerticalAlignment="Center"/>
                     <TextBox x:Name="cid" Height="20" Grid.Column="1"  Grid.Row="3" VerticalAlignment="Center" ></TextBox>
-                    <TextBlock Text="品牌" Grid.Column="0"  Grid.Row="4" VerticalAlignment="Center"/>
+                    <TextBlock Text="车辆品牌" Grid.Column="0"  Grid.Row="4" VerticalAlignment="Center"/>
                     <TextBox x:Name="cbrand" Height="20" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center"></TextBox>
-                    <TextBlock Text="车价(纯数字)" Grid.Column="0"  Grid.Row="5" VerticalAlignment="Center"/>
+                    <TextBlock Text="车辆价格(纯数字)" Grid.Column="0"  Grid.Row="5" VerticalAlignment="Center"/>
                     <TextBox x:Name="cprice" Height="20" Grid.Column="1"  Grid.Row="5" VerticalAlignment="Center"></TextBox>
                 </Grid>
 
@@ -94,7 +94,7 @@
                     <TextBox x:Name="qid" Height="20" Grid.Column="1"  Grid.Row="0" VerticalAlignment="Center"></TextBox>
                     <TextBlock Text="数量（纯数字）" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
                     <TextBox x:Name="ctnum" Height="20" Grid.Column="1"  Grid.Row="1" VerticalAlignment="Center"></TextBox>
-                    <TextBlock Text="车编号" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center"/>
+                    <TextBlock Text="车辆编号" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center"/>
                     <TextBox x:Name="cid2" Height="20" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Center"></TextBox>
                 </Grid>
 
@@ -117,9 +117,9 @@
                     <TextBox x:Name="ftprice" Height="20" Grid.Column="1"  Grid.Row="1" VerticalAlignment="Center"></TextBox>
                     <TextBlock Text="数量（纯数字）" Grid.Column="0"  Grid.Row="2" VerticalAlignment="Center"/>
                     <TextBox x:Name="ftnum" Height="20" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Center"></TextBox>
-                    <TextBlock Text="车商编号" Grid.Column="0"  Grid.Row="3" VerticalAlignment="Center"/>
+                    <TextBlock Text="厂商编号" Grid.Column="0"  Grid.Row="3" VerticalAlignment="Center"/>
                     <TextBox x:Name="fid2" Height="20" Grid.Column="1"  Grid.Row="3" VerticalAlignment="Center" ></TextBox>
-                    <TextBlock Text="车编号" Grid.Column="0"  Grid.Row="4" VerticalAlignment="Center"/>
+                    <TextBlock Text="车辆编号" Grid.Column="0"  Grid.Row="4" VerticalAlignment="Center"/>
                     <TextBox x:Name="cid3" Height="20" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center"></TextBox>
                 </Grid>
 
@@ -144,7 +144,7 @@
                     <TextBox x:Name="ctnum2" Height="20" Grid.Column="1"  Grid.Row="2" VerticalAlignment="Center"></TextBox>
                     <TextBlock Text="客户电话" Grid.Column="0"  Grid.Row="3" VerticalAlignment="Center"/>
                     <TextBox x:Name="cuid2" Height="20" Grid.Column="1"  Grid.Row="3" VerticalAlignment="Center" ></TextBox>
-                    <TextBlock Text="车编号" Grid.Column="0"  Grid.Row="4" VerticalAlignment="Center"/>
+                    <TextBlock Text="车辆编号" Grid.Column="0"  Grid.Row="4" VerticalAlignment="Center"/>
                     <TextBox x:Name="cid4" Height="20" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center"></TextBox>
                 </Grid>
 

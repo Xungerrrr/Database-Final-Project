@@ -26,7 +26,7 @@
         <Grid Background="{ThemeResource MyAcrylicBrush}">
             
         </Grid>
-        <SplitView x:Name="mainSplitView" OpenPaneLength="200" CompactPaneLength="45" PaneBackground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}" DisplayMode="CompactOverlay">
+        <SplitView x:Name="mainSplitView" OpenPaneLength="220" CompactPaneLength="45" PaneBackground="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}" DisplayMode="CompactOverlay">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -35,7 +35,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Margin="0 30 0 0">
                         <Button x:Name="hanburgButton" FontFamily="Segoe MDL2 Assets" Content="" FontSize="24" Click="hanburgButton_Click" Height="44"/>
-                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" Text="汽车管理系统"/>
+                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" FontSize="18" Text="汽车销售管理系统"/>
                     </StackPanel>
                     <ListView Grid.Row="1" x:Name="mainListView" ItemsSource="{Binding recommandMenu.menuItems}" ItemTemplate="{StaticResource MenuItemDataTemplate}" IsItemClickEnabled="True" ItemClick="mainListView_ItemClick"/>
                 </Grid>
